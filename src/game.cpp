@@ -112,8 +112,8 @@ void Game::render(){
 	int w_width = waterTexture.getSize().x, w_height = waterTexture.getSize().y;
 	int wx = ((int(center.x)/w_width)*w_width-int(center.x))%w_width-w_width;
 	int wy = ((int(center.y)/w_height)*w_height-int(center.y))%w_height-w_height;
-	for(int x = wx; x <= wx+800+w_width; x += w_width)
-		for(int y = wy; y <= wy+600+w_height; y += w_height)
+	for(int x = wx; x <= wx+800*2+w_width; x += w_width)
+		for(int y = wy; y <= wy+600*2+w_height; y += w_height)
 			water.setPosition(V2f(x, y)), window->draw(water);
 
 	for (auto icefloe : icefloes)
