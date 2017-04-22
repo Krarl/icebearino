@@ -132,6 +132,8 @@ void Game::addPenguinOnFloe(int floe)  {
 
 
 float sectionSize = 150;
+float minDist = 1000, maxDist = 2000;
+
 void addFloes(Game* game){
 	V2f ppos = game->player->getRealPos(game);
 	int rx = int(ppos.x/sectionSize), ry = int(ppos.y/sectionSize), margin = 10;
@@ -140,8 +142,10 @@ void addFloes(Game* game){
 			pair<int, int> pos = {x, y};
 			if (addedPositions.find(pos) != addedPositions.end())
 				continue;
-			addedPositions.insert(pos);
 			V2f rpos = V2f((x+rnd())*sectionSize, (y+rnd())*sectionSize);
+			if (len(game->player->pos-rpos) > minDist)
+				continue;
+			addedPositions.insert(pos);
 
 			game->icefloes[floeIndex] = new Icefloe(rpos, floeIndex);
 			floeIndex++;
@@ -151,4 +155,5 @@ void addFloes(Game* game){
 			}
 		}
 	}
+	cout << game->icefloes.size() << endl;
 }

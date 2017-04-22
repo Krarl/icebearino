@@ -17,7 +17,7 @@ bool Polygon::inside(V2f point){
 	bool yes = true;
 	rep(i, 0, points.size()){
 		V2f edge = points[(i+1)%points.size()]-points[i], place = point-points[i];
-		yes &= edge.y*place.x-edge.x*place.y < 0;
+		yes &= edge.y*place.x-edge.x*place.y <= 0;
 	}
 	return yes;
 }

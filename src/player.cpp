@@ -5,8 +5,11 @@
 sf::Texture Player::texture;
 sf::SoundBuffer Player::walkSoundBuffer;
 
+float bodyLength;
+
 Player::Player(int icefloe) {
     loadTexture(texture, "res/img/bear.png");
+    bodyLength = (float)texture.getSize().y / 2.0f;
     sprite.setTexture(texture);
     centerSprite(sprite);
 
@@ -87,18 +90,18 @@ void Player::update(Game* game) {
     velY -= 5.0f * game->dt;
 
     // Detect if we moved outside our floe
-    if (icefloe != -1 && !game->icefloes[icefloe]->inside(pos)) {
+    if (icefloe != -1 && !onFloe(game, game->icefloes[icefloe])) {
         pos = getRealPos(game);
         icefloe = -1;
     }
 
     // Landing and switching ice floe
     if (height <= 0.0f && velY <= 0.0f) {
-        velY = height = 0.0f;        
+        velY = height = 0.0f;
         if (icefloe == -1) {
             for (auto f : game->icefloes) {
                 sf::Vector2f relativePos = getRealPos(game) - f.second->pos;
-                if (f.second->inside(relativePos)) {
+                if (onFloe(game, f.second)) {
                     icefloe = f.first;
                     pos = relativePos;
                     break;
@@ -106,10 +109,24 @@ void Player::update(Game* game) {
             }
 
             if (icefloe == -1) {
-                game->over = true;        
+                game->over = true;
             }
         }
     }
+}
+
+bool Player::onFloe(Game* game, Icefloe* floe){
+    int hits = 0;
+    V2f relPos = getRealPos(game) - floe->pos
+        , forward = getForwardVector()
+        , perp = getPerpVector();
+
+    float sideFactor = bodyLength*0.2f, forwardFactor = bodyLength*0.5f;
+
+    rep(dx, -1, 2) rep(dy, -1, 2)
+        hits += floe->inside(relPos + perp*(sideFactor*dx) + forward*(forwardFactor*dy));
+
+    return hits >= 1;
 }
 
 void Player::render(Game* game) {
@@ -122,6 +139,10 @@ void Player::render(Game* game) {
 
 sf::Vector2f Player::getForwardVector() {
     return sf::Vector2f(cos(rot - M_PI / 2.0f), sin(rot - M_PI / 2.0f));
+}
+
+sf::Vector2f Player::getPerpVector() {
+    return sf::Vector2f(cos(rot), sin(rot));
 }
 
 sf::Vector2f Player::getRealPos(Game* game) {

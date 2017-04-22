@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include "game.h"
+#include "icefloe.h"
 
 using namespace std;
 
@@ -16,8 +17,10 @@ public:
 
 	void update(Game* game);
 	void render(Game* game);
+	bool onFloe(Game* game, Icefloe* floe);
 
 	sf::Vector2f getForwardVector();
+	sf::Vector2f getPerpVector();
 
 	sf::Vector2f getRealPos(Game* game);
 	sf::Vector2f getRealMouthPos(Game* game);
