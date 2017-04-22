@@ -59,7 +59,16 @@ float perlinh = 0;
 void Game::update(float dt){
 	perlinh += dt;
 	this->dt = dt;
+
+
+	addFloes(this);
+
 	for (int i = 0; i < (int)penguins.size(); i++) {
+		if (icefloes.find(penguins[i]->icefloe) == icefloes.end()){
+			penguins.erase(penguins.begin() + i);
+			i--;
+			continue;
+		}
 		penguins[i]->update(this);
 
 		if (dist(player->getRealMouthPos(this), penguins[i]->getRealPos(this)) < 50.0f) {
@@ -74,8 +83,6 @@ void Game::update(float dt){
 	player->update(this);
 	for (auto icefloe : icefloes)
 		icefloe.second->update(this);
-
-	addFloes(this);
 
 	center = player->getRealPos(this);
 }
@@ -143,7 +150,7 @@ void addFloes(Game* game){
 			if (addedPositions.find(pos) != addedPositions.end())
 				continue;
 			V2f rpos = V2f((x+rnd())*sectionSize, (y+rnd())*sectionSize);
-			if (len(game->player->pos-rpos) > minDist)
+			if (len(game->center-rpos) > minDist)
 				continue;
 			addedPositions.insert(pos);
 
@@ -155,5 +162,12 @@ void addFloes(Game* game){
 			}
 		}
 	}
-	cout << game->icefloes.size() << endl;
+	vector<int> toBeDeleted;
+	for (auto floe : game->icefloes){
+		if (len(game->center-floe.second->pos) > maxDist)
+			toBeDeleted.push_back(floe.first);
+	}
+	for (int i : toBeDeleted){
+		game->icefloes.erase(i);
+	}
 }

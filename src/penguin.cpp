@@ -5,7 +5,7 @@ sf::Texture Penguin::texture;
 
 Penguin::Penguin(int icefloe) {
     loadTexture(texture, "res/img/penguin.png");
-    texture.setSmooth(true);    
+    texture.setSmooth(true);
     sprite.setTexture(texture);
     centerSprite(sprite);
     sprite.setRotation(rnd() * 360.0f);
