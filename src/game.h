@@ -14,7 +14,6 @@ public:
 	sf::RenderWindow* window;
 	V2f center, screenCenter;
 	vector<Penguin*> penguins;
-	sf::Window* window;
 	float dt;
 
 	void init(sf::RenderWindow* window);
