@@ -1,6 +1,7 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include "game.h"
+#include "particlesystem.h"
 #include "util.h"
 #include <sstream>
 
@@ -28,6 +29,9 @@ int main()
     sf::Sound icebearinoSound;
     icebearinoSound.setBuffer(icebearinoBuffer);
     icebearinoSound.play();
+
+    // Snow effect
+    ParticleSystem snow(1000, ParticleMode::Snow, "res/img/snowflake.png");
 
     bool gamerunning = false;
     int highscore = 0;
@@ -59,6 +63,8 @@ int main()
                 game.cleanup();
             }
         } else {
+            snow.update(dt);
+
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return)){
                 game.init(&window);
                 gamerunning = true;
@@ -94,8 +100,7 @@ int main()
             window.draw(title);
             window.draw(pressEnter);
             window.draw(hs);
-
-            //sf::Text startText("press space to start", font, 30.0f);
+            window.draw(snow);            
         }
 
         // Update the window
