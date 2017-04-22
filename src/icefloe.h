@@ -2,6 +2,7 @@
 #define ICEFLOE_H_
 #include <SFML/Graphics.hpp>
 #include "polygon.h"
+#include "macros.h"
 
 class Game;
 
@@ -15,7 +16,7 @@ public:
 class Icefloe {
 public:
 	Icefloe();
-	sf::Vector2f pos;
+	V2f pos, vel;
 	vector<Part> parts;
 	void update(Game* game);
 	void render(Game* game);

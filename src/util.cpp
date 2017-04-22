@@ -1,4 +1,6 @@
 #include "util.h"
+#include <math.h>
+#include <random>
 
 void loadTexture(sf::Texture& texture, string file) {
     auto size = texture.getSize();
@@ -15,4 +17,8 @@ void drawSprite(sf::Sprite& sprite, Game* game) {
     sf::FloatRect rect = sprite.getLocalBounds();
     sprite.setPosition(sprite.getPosition() + game->center + game->screenCenter - sf::Vector2f(rect.width / 2.0f, rect.height / 2.0f));
     game->window->draw(sprite);
+}
+
+float rnd(){
+    return (rand()%1000)/1000.0f;
 }
