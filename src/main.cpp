@@ -1,6 +1,7 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include "game.h"
+#include "util.h"
 
 int main()
 {
@@ -13,6 +14,12 @@ int main()
     sf::Font font;
     if (!font.loadFromFile("res/fonts/arial.ttf"))
         return EXIT_FAILURE;
+
+    // Death sound
+    sf::SoundBuffer deathSoundBuffer;
+    loadSoundBuffer(deathSoundBuffer, "res/sound/death.ogg");
+    sf::Sound deathSound;
+    deathSound.setBuffer(deathSoundBuffer);
 
     bool gamerunning = false;
 
@@ -40,6 +47,7 @@ int main()
             game.update(dt);
             if (game.over) {
                 gamerunning = false;
+                deathSound.play();
             }
         } else {
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return)){
