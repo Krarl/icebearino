@@ -1,7 +1,9 @@
 #ifndef PENGUIN_H_
 #define PENGUIN_H_
+
 #include <SFML/Graphics.hpp>
 #include "game.h"
+
 using namespace std;
 
 class Game;
@@ -14,7 +16,7 @@ public:
 	void render(Game* game);
 
 private:
-	sf::Texture texture;
+	static sf::Texture texture;
 };
 
 #endif
