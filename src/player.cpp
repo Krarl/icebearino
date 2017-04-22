@@ -22,8 +22,8 @@ void Player::update(Game* game) {
     const auto runKey = sf::Keyboard::Key::W;
     const auto backKey = sf::Keyboard::Key::S;
 
-    const float runSpeed = 15.0f;
-    const float turnSpeed = 0.2f;
+    const float runSpeed = 150.0f;
+    const float turnSpeed = 1.7f;
 
     sf::Vector2f forward = sf::Vector2f(cos(rot - M_PI / 2.0f), sin(rot - M_PI / 2.0f));
 

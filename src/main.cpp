@@ -16,6 +16,8 @@ int main()
     sf::Text text("Hello SFML", font, 50.0f);
 
     // Start the game loop
+    sf::Clock deltaClock;
+    float dt = 0.0f;
     while (window.isOpen())
     {
         // Process events
@@ -30,8 +32,10 @@ int main()
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape))
             window.close();
 
+        
+
         // Update game
-        game.update(0.01f);        
+        game.update(dt);        
 
         // Clear screen
         window.clear();
@@ -41,6 +45,8 @@ int main()
 
         // Update the window
         window.display();
+
+        dt = deltaClock.restart().asSeconds();
     }
     return EXIT_SUCCESS;
 }
