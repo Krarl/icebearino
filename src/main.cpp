@@ -65,10 +65,18 @@ int main()
             game.render();
         } else if (!gamerunning) {
             sf::Text title("ICEBEARINO", font, 100.0f);
+            sf::Text pressEnter("Press enter to start the game", font, 20.0f);
+
             sf::FloatRect textRect = title.getLocalBounds();
             title.setOrigin(textRect.left + textRect.width/2.0f, textRect.top + textRect.height/2.0f);
-            title.setPosition(sf::Vector2f(400, 300));
+            title.setPosition(sf::Vector2f(400, 250));
+
+            textRect = pressEnter.getLocalBounds();
+            pressEnter.setOrigin(textRect.left + textRect.width/2.0f, textRect.top + textRect.height/2.0f);
+            pressEnter.setPosition(sf::Vector2f(400, 320));
+
             window.draw(title);
+            window.draw(pressEnter);
 
             //sf::Text startText("press space to start", font, 30.0f);
         }
