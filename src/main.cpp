@@ -15,6 +15,8 @@ int main()
         return EXIT_FAILURE;
     sf::Text text("Hello SFML", font, 50.0f);
 
+    bool gamerunning = 0;
+
     // Start the game loop
     sf::Clock deltaClock;
     float dt = 0.0f;
@@ -32,16 +34,32 @@ int main()
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape))
             window.close();
 
-        
+
 
         // Update game
-        game.update(dt);        
+        if (gamerunning) {
+            game.update(dt);
+        } else {
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)){
+                game.init(&window);
+                gamerunning = true;
+            }
+        }
 
         // Clear screen
         window.clear();
 
         // Render game
         game.render();
+        if (!gamerunning){
+            sf::Text title("ICEBEARINO", font, 100.0f);
+            sf::FloatRect textRect = title.getLocalBounds();
+            title.setOrigin(textRect.left + textRect.width/2.0f, textRect.top + textRect.height/2.0f);
+            title.setPosition(sf::Vector2f(400, 300));
+            window.draw(title);
+
+            //sf::Text startText("press space to start", font, 30.0f);
+        }
 
         // Update the window
         window.display();

@@ -52,6 +52,7 @@ void Player::update(Game* game) {
     else if (!moving && walkSound.getStatus() == sf::SoundSource::Status::Playing) {
         walkSound.stop();
     }
+
 }
 
 void Player::render(Game* game) {

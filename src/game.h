@@ -17,9 +17,11 @@ public:
 	sf::RenderWindow* window;
 	V2f center, screenCenter;
 	Player* player;
+	string menuText = "";
 	vector<Penguin*> penguins;
 	map<int, Icefloe*> icefloes;
 	float dt;
+	bool over;
 
 	void init(sf::RenderWindow* window);
 	void update(float dt);

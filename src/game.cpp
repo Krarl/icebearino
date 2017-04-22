@@ -16,6 +16,11 @@ void Game::init(sf::RenderWindow* window){
 	screenCenter = V2f(400, 300);
 
 	player = new Player(0);
+	addedPositions.clear();
+	penguins.clear();
+	icefloes.clear();
+	over = 0;
+	floeIndex = 0;
 
 	loadTexture(waterTexture, "res/img/water.png");
 	waterTexture.setRepeated(true);
@@ -46,7 +51,7 @@ void Game::render(){
 		icefloe.second->render(this);
 	for (auto penguin : penguins)
 		penguin->render(this);
-		
+
 	player->render(this);
 }
 
