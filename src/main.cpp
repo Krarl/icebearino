@@ -18,9 +18,6 @@ int main()
     // Start the game loop
     while (window.isOpen())
     {
-        game.update(0.01f);
-        game.render();
-
         // Process events
         sf::Event event;
         while (window.pollEvent(event))
@@ -29,10 +26,16 @@ int main()
             if (event.type == sf::Event::Closed)
                 window.close();
         }
+
+        // Update game
+        game.update(0.01f);        
+
         // Clear screen
         window.clear();
-        // Draw the string
-        window.draw(text);
+
+        // Render game
+        game.render();
+
         // Update the window
         window.display();
     }
