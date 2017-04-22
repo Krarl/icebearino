@@ -12,6 +12,7 @@ class Game;
 class Player {
 public:
 	Player(int icefloe);
+	~Player();
 
 	void update(Game* game);
 	void render(Game* game);

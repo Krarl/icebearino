@@ -22,6 +22,10 @@ Player::Player(int icefloe) {
     velY = 0.0f;
 }
 
+Player::~Player() {
+    //walkSound.stop();
+}
+
 void Player::update(Game* game) {
     const auto leftKey = sf::Keyboard::Key::A;
     const auto rightKey = sf::Keyboard::Key::D;

@@ -15,9 +15,6 @@ void Game::init(sf::RenderWindow* window){
 	screenCenter = V2f(400, 300);
 
 	player = new Player(0);
-	addedPositions.clear();
-	penguins.clear();
-	icefloes.clear();
 	over = 0;
 	floeIndex = 0;
 
@@ -28,6 +25,25 @@ void Game::init(sf::RenderWindow* window){
 
 	addedPositions.insert({0, 0});
 	icefloes[floeIndex ++] = new Icefloe();
+}
+
+void Game::cleanup() {
+	cout << "Deleting player" << endl;
+	delete player;
+
+	cout << "Deleting penguins" << endl;
+	for (Penguin* penguin : penguins)
+		delete penguin;
+	penguins.clear();
+
+	cout << "Deleting floes" << endl;
+	for (auto floe : icefloes)
+		delete floe.second;
+	icefloes.clear();
+
+	cout << "Done" << endl;	
+	
+	addedPositions.clear();
 }
 
 void Game::update(float dt){

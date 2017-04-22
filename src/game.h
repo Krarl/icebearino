@@ -24,6 +24,7 @@ public:
 	bool over;
 
 	void init(sf::RenderWindow* window);
+	void cleanup();
 	void update(float dt);
 	void render();
 

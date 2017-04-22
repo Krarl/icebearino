@@ -48,6 +48,7 @@ int main()
             if (game.over) {
                 gamerunning = false;
                 deathSound.play();
+                game.cleanup();
             }
         } else {
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return)){
@@ -60,8 +61,9 @@ int main()
         window.clear();
 
         // Render game
-        game.render();
-        if (!gamerunning){
+        if (gamerunning) {
+            game.render();
+        } else if (!gamerunning) {
             sf::Text title("ICEBEARINO", font, 100.0f);
             sf::FloatRect textRect = title.getLocalBounds();
             title.setOrigin(textRect.left + textRect.width/2.0f, textRect.top + textRect.height/2.0f);
