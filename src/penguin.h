@@ -8,8 +8,13 @@ class Game;
 
 class Penguin {
 public:
-	void update(Game& game);
-	void render(Game& game);
+	Penguin();
+
+	void update(Game* game);
+	void render(Game* game);
+
+private:
+	sf::Texture texture;
 };
 
 #endif

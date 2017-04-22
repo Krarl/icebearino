@@ -6,6 +6,8 @@
 #include <SFML/Graphics.hpp>
 using namespace std;
 
+class Penguin;
+
 class Game {
 public:
 	void init();
