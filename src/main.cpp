@@ -21,6 +21,13 @@ int main()
     sf::Sound deathSound;
     deathSound.setBuffer(deathSoundBuffer);
 
+    // Icebearino sound
+    sf::SoundBuffer icebearinoBuffer;
+    loadSoundBuffer(icebearinoBuffer, "res/sound/icebearino.ogg");
+    sf::Sound icebearinoSound;
+    icebearinoSound.setBuffer(icebearinoBuffer);
+    icebearinoSound.play();
+
     bool gamerunning = false;
 
     // Start the game loop
