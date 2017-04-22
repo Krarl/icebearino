@@ -14,6 +14,9 @@ Player::Player(int icefloe) {
     this->icefloe = icefloe;
     pos = sf::Vector2f(0.0f, 0.0f);
     rot = 0.0f;
+    height = 0.0f;
+    vel = sf::Vector2f(0.0f, 0.0f);
+    velY = 0.0f;
 }
 
 void Player::update(Game* game) {
@@ -21,22 +24,29 @@ void Player::update(Game* game) {
     const auto rightKey = sf::Keyboard::Key::D;
     const auto runKey = sf::Keyboard::Key::W;
     const auto backKey = sf::Keyboard::Key::S;
+    const auto jumpKey = sf::Keyboard::Key::Space;
 
-    const float runSpeed = 150.0f;
+    float runSpeed = 600.0f - length(vel);
+    const float reverseFraction = 0.25f;
     const float turnSpeed = 1.7f;
+    const float friction = 3.0f;
 
     sf::Vector2f forward = sf::Vector2f(cos(rot - M_PI / 2.0f), sin(rot - M_PI / 2.0f));
 
     bool moving = false;
 
-    if (sf::Keyboard::isKeyPressed(runKey)) {
-        pos += game->dt * forward * runSpeed;
-        moving = true;
+    // Move forward/backward
+    if (height == 0.0f) {
+        if (sf::Keyboard::isKeyPressed(runKey)) {
+            vel += game->dt * forward * runSpeed;
+            moving = true;
+        }
+        if (sf::Keyboard::isKeyPressed(backKey)) {
+            vel -= game->dt * forward * runSpeed * reverseFraction;
+            moving = true;
+        }
     }
-    if (sf::Keyboard::isKeyPressed(backKey)) {
-        pos -= game->dt * forward * runSpeed * 0.4f;
-        moving = true;
-    }
+    // Rotate left/right
     if (sf::Keyboard::isKeyPressed(leftKey)) {
         rot -= game->dt * turnSpeed;
         moving = true;
@@ -46,6 +56,12 @@ void Player::update(Game* game) {
         moving = true;
     }
 
+    // Update position and velocity
+    pos += vel * game->dt;
+    if (height == 0.0f)
+        vel -= vel * friction * game->dt;
+
+    // Walk sound
     if (moving && walkSound.getStatus() != sf::SoundSource::Status::Playing) {
         walkSound.play();
     }
@@ -53,11 +69,22 @@ void Player::update(Game* game) {
         walkSound.stop();
     }
 
+    // Jumping
+    if (height == 0.0f && sf::Keyboard::isKeyPressed(jumpKey)) {
+        velY = 1.5f;
+    }
+    height += velY * game->dt;
+    velY -= 5.0f * game->dt;
+    if (height < 0.0f) {
+        velY = height = 0.0f;
+    }
 }
 
 void Player::render(Game* game) {
     sprite.setPosition(getRealPos(game));
     sprite.setRotation(rot * 180.0f / M_PI);
+    float scale = 1.0f + height;
+    sprite.setScale(scale, scale);
     drawSprite(sprite, game);
 }
 

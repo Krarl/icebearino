@@ -21,6 +21,9 @@ public:
 	int icefloe;
 	sf::Vector2f pos;
 	float rot;
+	float height;
+	sf::Vector2f vel;
+	float velY;
 
 private:
 	sf::Texture texture;

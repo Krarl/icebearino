@@ -39,7 +39,7 @@ int main()
         if (gamerunning) {
             game.update(dt);
         } else {
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)){
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return)){
                 game.init(&window);
                 gamerunning = true;
             }

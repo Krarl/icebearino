@@ -28,6 +28,10 @@ void drawSprite(sf::Sprite& sprite, Game* game) {
     game->window->draw(sprite);
 }
 
+float length(sf::Vector2f v) {
+    return sqrt(v.x*v.x + v.y*v.y);
+}
+
 float rnd(){
     return (rand()%1000)/1000.0f;
 }
