@@ -16,7 +16,7 @@ Penguin::Penguin(int icefloe) {
 }
 
 void Penguin::update(Game* game) {
-    
+    sprite.setRotation(sprite.getRotation() + 30.0 * game->dt);
 }
 
 void Penguin::render(Game* game) {
