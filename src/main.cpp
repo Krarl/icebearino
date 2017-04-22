@@ -5,7 +5,7 @@
 int main()
 {
     // Create the main window
-    sf::RenderWindow window(sf::VideoMode(800, 600), "SFML window");
+    sf::RenderWindow window(sf::VideoMode(800, 600), "Icebearino");
     Game game;
     game.init(&window);
 
@@ -13,7 +13,6 @@ int main()
     sf::Font font;
     if (!font.loadFromFile("res/fonts/arial.ttf"))
         return EXIT_FAILURE;
-    sf::Text text("Hello SFML", font, 50.0f);
 
     bool gamerunning = 0;
 

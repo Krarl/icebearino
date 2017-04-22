@@ -10,7 +10,6 @@ set<pair<int, int> > addedPositions;
 void addFloes(Game* game);
 
 void Game::init(sf::RenderWindow* window){
-	cout << "hej" << endl;
 	this->window = window;
 	center = V2f(0, 0);
 	screenCenter = V2f(400, 300);
