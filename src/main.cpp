@@ -7,8 +7,7 @@ int main()
     // Create the main window
     sf::RenderWindow window(sf::VideoMode(800, 600), "SFML window");
     Game game;
-    game.init();
-    game.window = &window;
+    game.init(&window);
 
     // Create a graphical text to display
     sf::Font font;
