@@ -6,6 +6,7 @@ using namespace std;
 
 
 class Polygon {
+public:
 	Polygon();
 	Polygon(vector<V2f> points);
 	vector<V2f> points;

@@ -1,7 +1,15 @@
 #include "icefloe.h"
 #include "game.h"
 
-void Icefloe::update(Game* game){ 
+Part::Part(){
+
+}
+
+Icefloe::Icefloe(){
+	parts.push_back(Part());
+}
+
+void Icefloe::update(Game* game){
 
 }
 

@@ -18,6 +18,9 @@ int main()
     // Start the game loop
     while (window.isOpen())
     {
+        game.update(0.01f);
+        game.render();
+
         // Process events
         sf::Event event;
         while (window.pollEvent(event))
