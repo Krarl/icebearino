@@ -16,6 +16,7 @@ public:
 class Icefloe {
 public:
 	Icefloe();
+	Icefloe(V2f pos);
 	V2f pos, vel;
 	vector<Part> parts;
 	void update(Game* game);

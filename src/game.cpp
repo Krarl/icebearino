@@ -31,6 +31,8 @@ void Game::update(float dt){
 	player->update(this);
 	for (auto icefloe : icefloes)
 		icefloe.second->update(this);
+
+	addFloes(this);
 }
 
 
@@ -46,6 +48,17 @@ void Game::render(){
 }
 
 float sectionSize = 100;
-void addFloes(){
+set<pair<int, int> > addedPositions;
+void addFloes(Game* game){
+	int rx = 0, ry = 0, margin = 10;
+	rep(x, rx-margin, rx+margin)
+		rep(y, ry-margin, ry+margin) {
+			pair<int, int> pos = {x, y};
+			if (addedPositions.find(pos) != addedPositions.end())
+				continue;
+			addedPositions.insert(pos);
+			V2f rpos = V2f(x*sectionSize, y*sectionSize);
 
+			game->icefloes[floeIndex ++] = new Icefloe(rpos);
+		}
 }
