@@ -76,6 +76,8 @@ void Icefloe::render(Game* game){
 		rep(i, 0, pol.points.size())
 			cs.setPoint(i, pol.points[i]);
 		cs.setPosition(-game->center+game->screenCenter+pos);
+		cs.setOutlineThickness(10.0f);
+		cs.setOutlineColor(sf::Color(230, 255, 240));
 		game->window->draw(cs);
 	}
 }
