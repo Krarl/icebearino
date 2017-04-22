@@ -29,6 +29,10 @@ void drawSprite(sf::Sprite& sprite, Game* game) {
     game->window->draw(sprite);
 }
 
+void centerSprite(sf::Sprite& sprite) {
+    sprite.setOrigin(sprite.getTexture()->getSize().x / 2.0f, sprite.getTexture()->getSize().y / 2.0f);
+}
+
 float length(sf::Vector2f v) {
     return sqrt(v.x*v.x + v.y*v.y);
 }

@@ -8,7 +8,7 @@ sf::SoundBuffer Player::walkSoundBuffer;
 Player::Player(int icefloe) {
     loadTexture(texture, "res/img/bear.png");
     sprite.setTexture(texture);
-    sprite.setOrigin(texture.getSize().x / 2.0f, texture.getSize().y / 2.0f);
+    centerSprite(sprite);
 
     loadSoundBuffer(walkSoundBuffer, "res/sound/walk.ogg");
     walkSound.setBuffer(walkSoundBuffer);

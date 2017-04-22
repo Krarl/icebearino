@@ -70,11 +70,17 @@ void Game::render(){
 	player->render(this);
 }
 
+void Game::addPenguinOnFloe(int floe)  {
+	Penguin* penguin = new Penguin(floe);
+	penguins.push_back(penguin);
+}
+
+
 float sectionSize = 150;
 void addFloes(Game* game){
 	V2f ppos = game->player->getRealPos(game);
 	int rx = int(ppos.x/sectionSize), ry = int(ppos.y/sectionSize), margin = 10;
-	rep(x, rx-margin, rx+margin)
+	rep(x, rx-margin, rx+margin) {
 		rep(y, ry-margin, ry+margin) {
 			pair<int, int> pos = {x, y};
 			if (addedPositions.find(pos) != addedPositions.end())
@@ -83,5 +89,10 @@ void addFloes(Game* game){
 			V2f rpos = V2f((x+rnd())*sectionSize, (y+rnd())*sectionSize);
 
 			game->icefloes[floeIndex] = new Icefloe(rpos, floeIndex++);
+
+			if (rnd() < 0.1f) {
+				game->addPenguinOnFloe(floeIndex - 1);
+			}
 		}
+	}
 }

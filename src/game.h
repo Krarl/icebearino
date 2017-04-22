@@ -28,6 +28,8 @@ public:
 	void update(float dt);
 	void render();
 
+	void addPenguinOnFloe(int floe);
+
 private:
 	sf::Texture waterTexture;
 	sf::Sprite water;

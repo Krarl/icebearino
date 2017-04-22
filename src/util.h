@@ -10,6 +10,7 @@ using namespace std;
 void loadTexture(sf::Texture& texture, string file);
 void loadSoundBuffer(sf::SoundBuffer& soundBuffer, string file);
 void drawSprite(sf::Sprite& sprite, Game* game);
+void centerSprite(sf::Sprite& sprite);
 float length(sf::Vector2f v);
 float rnd();
 float len(V2f v);
