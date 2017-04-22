@@ -24,7 +24,7 @@ void Game::init(sf::RenderWindow* window){
 	loadTexture(waterTexture, "res/img/water.png");
 	waterTexture.setRepeated(true);
 	water.setTexture(waterTexture);
-	water.setTextureRect(sf::IntRect(0, 0, 800, 600));
+	//water.setTextureRect(sf::IntRect(0, 0, 800, 600));
 
 	loadSoundBuffer(penguinDeathBuffer, "res/sound/bird.ogg");
 	penguinDeath.setBuffer(penguinDeathBuffer);
@@ -109,7 +109,12 @@ void Game::render(){
 			window->draw(shape);
 		}*/
 
-	window->draw(water);
+	int w_width = waterTexture.getSize().x, w_height = waterTexture.getSize().y;
+	int wx = ((int(center.x)/w_width)*w_width-int(center.x))%w_width-w_width;
+	int wy = ((int(center.y)/w_height)*w_height-int(center.y))%w_height-w_height;
+	for(int x = wx; x <= wx+800+w_width; x += w_width)
+		for(int y = wy; y <= wy+600+w_height; y += w_height)
+			water.setPosition(V2f(x, y)), window->draw(water);
 
 	for (auto icefloe : icefloes)
 		icefloe.second->render(this);
