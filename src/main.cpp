@@ -27,6 +27,9 @@ int main()
                 window.close();
         }
 
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape))
+            window.close();
+
         // Update game
         game.update(0.01f);        
 
