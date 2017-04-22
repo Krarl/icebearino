@@ -50,6 +50,7 @@ Icefloe::Icefloe() : Icefloe(V2f(0, 0), 0) {
 
 }
 
+const float healthfactor = 0.1;
 
 void Icefloe::update(Game* game){
 	pos += game->dt*vel;
@@ -65,14 +66,22 @@ void Icefloe::update(Game* game){
 			V2f v2 = norm(vel)*(u2*(m2-m1)+2*m1*u1)/(m1+m2);
 			vel = v1;
 			icefloe->vel = v2;
+			//health -= m2/(m1+m2)*healthfactor, icefloe->health -= m1/(m1+m2)*healthfactor;
 		}
 	}
 }
 
 void Icefloe::render(Game* game){
+	sf::Color col = sf::Color::White;
+	sf::Color outCol = sf::Color::Black;
+
+	//col.a = char(255*health), outCol.a = char(255*(1-health));
 	for (Part part : parts){
 		Polygon pol = part.polygon;
 		sf::ConvexShape cs(pol.points.size());
+		cs.setFillColor(col);
+		cs.setOutlineThickness(2);
+		//cs.setOutlineColor(outCol);
 		rep(i, 0, pol.points.size())
 			cs.setPoint(i, pol.points[i]);
 		cs.setPosition(-game->center+game->screenCenter+pos);

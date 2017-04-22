@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include "macros.h"
+#include "perlin.h"
 using namespace std;
 
 int floeIndex = 0;
@@ -45,12 +46,16 @@ void Game::cleanup() {
 		delete floe.second;
 	icefloes.clear();
 
-	cout << "Done" << endl;	
-	
+	cout << "Done" << endl;
+
 	addedPositions.clear();
 }
 
+Perlin perlin;
+float perlinh = 0;
+
 void Game::update(float dt){
+	perlinh += dt;
 	this->dt = dt;
 	for (int i = 0; i < (int)penguins.size(); i++) {
 		penguins[i]->update(this);
@@ -74,6 +79,18 @@ void Game::update(float dt){
 
 
 void Game::render(){
+	/*float wstep = 10;
+	perlin.scale = 0.1;
+	for(float x = 0; x < 800; x += wstep)
+		for(float y = 0; y < 600; y += wstep) {
+			sf::Color col(0, 0, 120+perlin.perlAt(V3f(x, y, perlinh))*50);
+			sf::RectangleShape shape;
+			shape.setSize(V2f(wstep, wstep));
+			shape.setPosition(V2f(x, y));
+			shape.setFillColor(col);
+			window->draw(shape);
+		}*/
+
 	window->draw(water);
 
 	for (auto icefloe : icefloes)

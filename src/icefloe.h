@@ -24,7 +24,7 @@ public:
 	void update(Game* game);
 	void render(Game* game);
 	bool inside(V2f point, bool precise = true);
-	float mass, rad;
+	float mass, rad, health;
 
 };
 
