@@ -86,22 +86,29 @@ void Player::update(Game* game) {
     height += velY * game->dt;
     velY -= 5.0f * game->dt;
 
-    // Landing
-    if (height < 0.0f && velY < 0.0f) {
-        velY = height = 0.0f;
-        for (auto f : game->icefloes) {
-            sf::Vector2f relativePos = getRealPos(game) - f.second->pos;
-            if (f.second->inside(relativePos)) {
-                icefloe = f.first;
-                pos = relativePos;
-                break;
-            }
-        }
+    // Detect if we moved outside our floe
+    if (icefloe != -1 && !game->icefloes[icefloe]->inside(pos)) {
+        pos = getRealPos(game);
+        icefloe = -1;
     }
 
-    // Check for drowning
-    if ((icefloe == -1 && height == 0.0f) || (icefloe != -1 && !game->icefloes[icefloe]->inside(pos))) {
-        game->over = true;
+    // Landing and switching ice floe
+    if (height <= 0.0f && velY <= 0.0f) {
+        velY = height = 0.0f;        
+        if (icefloe == -1) {
+            for (auto f : game->icefloes) {
+                sf::Vector2f relativePos = getRealPos(game) - f.second->pos;
+                if (f.second->inside(relativePos)) {
+                    icefloe = f.first;
+                    pos = relativePos;
+                    break;
+                }
+            }
+
+            if (icefloe == -1) {
+                game->over = true;        
+            }
+        }
     }
 }
 
