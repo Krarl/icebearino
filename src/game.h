@@ -2,6 +2,7 @@
 #define GAME_H_
 #include <map>
 #include "penguin.h"
+#include "player.h"
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include "macros.h"
@@ -9,11 +10,13 @@
 using namespace std;
 
 class Penguin;
+class Player;
 
 class Game {
 public:
 	sf::RenderWindow* window;
 	V2f center, screenCenter;
+	Player* player;
 	vector<Penguin*> penguins;
 	map<int, Icefloe*> icefloes;
 	float dt;

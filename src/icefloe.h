@@ -15,7 +15,7 @@ public:
 class Icefloe {
 public:
 	Icefloe();
-	V2f pos;
+	sf::Vector2f pos;
 	vector<Part> parts;
 	void update(Game* game);
 	void render(Game* game);
