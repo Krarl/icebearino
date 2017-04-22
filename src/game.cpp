@@ -80,8 +80,8 @@ void addFloes(Game* game){
 			if (addedPositions.find(pos) != addedPositions.end())
 				continue;
 			addedPositions.insert(pos);
-			V2f rpos = V2f(x*sectionSize, y*sectionSize);
+			V2f rpos = V2f((x+rnd())*sectionSize, (y+rnd())*sectionSize);
 
-			game->icefloes[floeIndex ++] = new Icefloe(rpos);
+			game->icefloes[floeIndex] = new Icefloe(rpos, floeIndex++);
 		}
 }

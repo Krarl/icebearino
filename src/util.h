@@ -12,5 +12,7 @@ void loadSoundBuffer(sf::SoundBuffer& soundBuffer, string file);
 void drawSprite(sf::Sprite& sprite, Game* game);
 float length(sf::Vector2f v);
 float rnd();
+float len(V2f v);
+V2f norm(V2f v);
 
 #endif

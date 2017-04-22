@@ -1,5 +1,6 @@
 #include "util.h"
 #include <math.h>
+#include <SFML/Graphics.hpp>
 #include <random>
 
 void loadTexture(sf::Texture& texture, string file) {
@@ -34,4 +35,12 @@ float length(sf::Vector2f v) {
 
 float rnd(){
     return (rand()%1000)/1000.0f;
+}
+
+float len(V2f v){
+    return sqrt(v.x*v.x+v.y*v.y);
+}
+
+V2f norm(V2f v){
+    return v/len(v);
 }

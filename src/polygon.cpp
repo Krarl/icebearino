@@ -21,3 +21,12 @@ bool Polygon::inside(V2f point){
 	}
 	return yes;
 }
+
+float Polygon::area(){
+	float ret = 0;
+	rep(i, 0, points.size()){
+		V2f p1 = points[i], p2 = points[(i+1)%points.size()];
+		ret += p1.x*p2.y-p1.y*p2.x;
+	}
+	return ret;
+}
