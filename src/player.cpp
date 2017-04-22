@@ -26,7 +26,7 @@ void Player::update(Game* game) {
     const auto backKey = sf::Keyboard::Key::S;
     const auto jumpKey = sf::Keyboard::Key::Space;
 
-    float runSpeed = 600.0f - length(vel);
+    float runSpeed = 1200.0f - length(vel);
     const float reverseFraction = 0.25f;
     const float turnSpeed = 1.7f;
     const float friction = 3.0f;
@@ -71,12 +71,30 @@ void Player::update(Game* game) {
 
     // Jumping
     if (height == 0.0f && sf::Keyboard::isKeyPressed(jumpKey)) {
+        height = 0.01;
+        pos = getRealPos(game);
+        icefloe = -1;
         velY = 1.5f;
     }
     height += velY * game->dt;
     velY -= 5.0f * game->dt;
-    if (height < 0.0f) {
+
+    // Landing
+    if (height < 0.0f && velY < 0.0f) {
         velY = height = 0.0f;
+        for (auto f : game->icefloes) {
+            sf::Vector2f relativePos = getRealPos(game) - f.second->pos;
+            if (f.second->inside(relativePos)) {
+                icefloe = f.first;
+                pos = relativePos;
+                break;
+            }
+        }
+    }
+
+    // Check for drowning
+    if ((icefloe == -1 && height == 0.0f) || (icefloe != -1 && !game->icefloes[icefloe]->inside(pos))) {
+        game->over = true;
     }
 }
 

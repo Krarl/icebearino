@@ -14,7 +14,7 @@ int main()
     if (!font.loadFromFile("res/fonts/arial.ttf"))
         return EXIT_FAILURE;
 
-    bool gamerunning = 0;
+    bool gamerunning = false;
 
     // Start the game loop
     sf::Clock deltaClock;
@@ -38,6 +38,9 @@ int main()
         // Update game
         if (gamerunning) {
             game.update(dt);
+            if (game.over) {
+                gamerunning = false;
+            }
         } else {
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return)){
                 game.init(&window);
