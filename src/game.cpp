@@ -12,23 +12,23 @@ void Game::init(sf::RenderWindow* window){
 	screenCenter = V2f(400, 300);
 
 	loadTexture(waterTexture, "res/img/water.png");
+	waterTexture.setRepeated(true);	
 	water.setTexture(waterTexture);
-	water.setRepeated(true);
-	water.setSize(800, 600);
+	water.setTextureRect(sf::IntRect(0, 0, 800, 600));
 }
 
 void Game::update(float dt){
 	this->dt = dt;
-	for (auto p : penguins)
-		p->update(this);
+	for (auto penguin : penguins)
+		penguin->update(this);
 }
 
 
 void Game::render(){
-	
+	window->draw(water);
 
-	for (auto p : penguins)
-		penguin->render();
+	for (auto penguin : penguins)
+		penguin->render(this);
 
 	
 }
