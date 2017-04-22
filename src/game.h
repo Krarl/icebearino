@@ -33,6 +33,9 @@ public:
 private:
 	sf::Texture waterTexture;
 	sf::Sprite water;
+
+	sf::SoundBuffer penguinDeathBuffer;
+	sf::Sound penguinDeath;
 };
 
 #endif

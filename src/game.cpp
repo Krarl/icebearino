@@ -23,6 +23,9 @@ void Game::init(sf::RenderWindow* window){
 	water.setTexture(waterTexture);
 	water.setTextureRect(sf::IntRect(0, 0, 800, 600));
 
+	loadSoundBuffer(penguinDeathBuffer, "res/sound/bird.ogg");
+	penguinDeath.setBuffer(penguinDeathBuffer);
+
 	addedPositions.insert({0, 0});
 	icefloes[floeIndex] = new Icefloe(sf::Vector2f(0.0f, 0.0f), floeIndex);
 	floeIndex++;
@@ -56,6 +59,7 @@ void Game::update(float dt){
 			delete penguins[i];
 			penguins.erase(penguins.begin() + i);
 			i--;
+			penguinDeath.play();
 		}
 	}
 
