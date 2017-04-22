@@ -1,7 +1,7 @@
 #include "game.h"
 #include "util.h"
 #include <iostream>
-#include <string> 
+#include <string>
 #include "macros.h"
 using namespace std;
 
@@ -12,9 +12,10 @@ void Game::init(sf::RenderWindow* window){
 	screenCenter = V2f(400, 300);
 
 	loadTexture(waterTexture, "res/img/water.png");
-	waterTexture.setRepeated(true);	
+	waterTexture.setRepeated(true);
 	water.setTexture(waterTexture);
 	water.setTextureRect(sf::IntRect(0, 0, 800, 600));
+	icefloes[0] = new Icefloe();
 }
 
 void Game::update(float dt){
@@ -30,5 +31,5 @@ void Game::render(){
 	for (auto penguin : penguins)
 		penguin->render(this);
 
-	
+
 }

@@ -5,6 +5,7 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include "macros.h"
+#include "icefloe.h"
 using namespace std;
 
 class Penguin;
@@ -14,6 +15,7 @@ public:
 	sf::RenderWindow* window;
 	V2f center, screenCenter;
 	vector<Penguin*> penguins;
+	map<int, Icefloe*> icefloes;
 	float dt;
 
 	void init(sf::RenderWindow* window);
