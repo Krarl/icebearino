@@ -1,9 +1,11 @@
 #include "penguin.h"
 #include "util.h"
+#include <math.h>
 
 Player::Player(int icefloe) {
     loadTexture(texture, "res/img/bear.png");
     sprite.setTexture(texture);
+    sprite.setOrigin(texture.getSize().x / 2.0f, texture.getSize().y / 2.0f);
 
     this->icefloe = icefloe;
     pos = sf::Vector2f(0.0f, 0.0f);
@@ -17,13 +19,15 @@ void Player::update(Game* game) {
     const auto backKey = sf::Keyboard::Key::S;
 
     const float runSpeed = 15.0f;
-    const float turnSpeed = 10.0f;
+    const float turnSpeed = 0.2f;
+
+    sf::Vector2f forward = sf::Vector2f(cos(rot - M_PI / 2.0f), sin(rot - M_PI / 2.0f));
 
     if (sf::Keyboard::isKeyPressed(runKey)) {
-        pos.y -= game->dt * runSpeed;
+        pos += game->dt * forward * runSpeed;
     }
     if (sf::Keyboard::isKeyPressed(backKey)) {
-        pos.y += game->dt * runSpeed * 0.4f;
+        pos -= game->dt * forward * runSpeed * 0.4f;
     }
     if (sf::Keyboard::isKeyPressed(leftKey)) {
         rot -= game->dt * turnSpeed;
@@ -35,7 +39,7 @@ void Player::update(Game* game) {
 
 void Player::render(Game* game) {
     sprite.setPosition(getRealPos(game));
-    sprite.setRotation(rot);
+    sprite.setRotation(rot * 180.0f / M_PI);
     drawSprite(sprite, game);
 }
 
