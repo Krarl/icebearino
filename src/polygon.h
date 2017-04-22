@@ -9,6 +9,7 @@ class Polygon {
 public:
 	Polygon();
 	Polygon(vector<V2f> points);
+	bool inside(V2f point);
 	vector<V2f> points;
 };
 

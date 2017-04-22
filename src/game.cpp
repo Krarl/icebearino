@@ -6,6 +6,7 @@
 using namespace std;
 
 int floeIndex = 0;
+set<pair<int, int> > addedPositions;
 void addFloes(Game* game);
 
 void Game::init(sf::RenderWindow* window){
@@ -20,6 +21,8 @@ void Game::init(sf::RenderWindow* window){
 	waterTexture.setRepeated(true);
 	water.setTexture(waterTexture);
 	water.setTextureRect(sf::IntRect(0, 0, 800, 600));
+
+	addedPositions.insert({0, 0});
 	icefloes[floeIndex ++] = new Icefloe();
 }
 
@@ -47,10 +50,10 @@ void Game::render(){
 
 }
 
-float sectionSize = 100;
-set<pair<int, int> > addedPositions;
+float sectionSize = 150;
 void addFloes(Game* game){
-	int rx = 0, ry = 0, margin = 10;
+	V2f ppos = game->player->getRealPos(game);
+	int rx = int(ppos.x/sectionSize), ry = int(ppos.y/sectionSize), margin = 10;
 	rep(x, rx-margin, rx+margin)
 		rep(y, ry-margin, ry+margin) {
 			pair<int, int> pos = {x, y};

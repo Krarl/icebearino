@@ -21,6 +21,7 @@ public:
 	vector<Part> parts;
 	void update(Game* game);
 	void render(Game* game);
+	bool inside(V2f point);
 
 };
 

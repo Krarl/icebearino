@@ -34,3 +34,10 @@ void Icefloe::render(Game* game){
 		game->window->draw(cs);
 	}
 }
+
+bool Icefloe::inside(V2f point){
+	bool yes = false;
+	for(Part part : parts)
+		yes |= part.polygon.inside(point);
+	return yes;
+}
