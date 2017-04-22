@@ -4,7 +4,7 @@ OUT = icebearino.out
 CC = g++ -std=c++11
 FLAGS = -Wall
 
-_OBJS = main.o
+_OBJS = main.o icefloe.o game.o penguin.o
 OBJS = $(patsubst %,$(OBJDIR)/%,$(_OBJS))
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.cpp
