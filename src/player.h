@@ -26,10 +26,10 @@ public:
 	float velY;
 
 private:
-	sf::Texture texture;
+	static sf::Texture texture;
 	sf::Sprite sprite;
 
-	sf::SoundBuffer walkSoundBuffer;
+	static sf::SoundBuffer walkSoundBuffer;
 	sf::Sound walkSound;
 };
 

@@ -2,6 +2,9 @@
 #include "util.h"
 #include <math.h>
 
+sf::Texture Player::texture;
+sf::SoundBuffer Player::walkSoundBuffer;
+
 Player::Player(int icefloe) {
     loadTexture(texture, "res/img/bear.png");
     sprite.setTexture(texture);
