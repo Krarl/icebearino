@@ -24,7 +24,8 @@ void Game::init(sf::RenderWindow* window){
 	water.setTextureRect(sf::IntRect(0, 0, 800, 600));
 
 	addedPositions.insert({0, 0});
-	icefloes[floeIndex ++] = new Icefloe();
+	icefloes[floeIndex] = new Icefloe(sf::Vector2f(0.0f, 0.0f), floeIndex);
+	floeIndex++;
 }
 
 void Game::cleanup() {
@@ -56,6 +57,8 @@ void Game::update(float dt){
 		icefloe.second->update(this);
 
 	addFloes(this);
+
+	center = player->getRealPos(this);
 }
 
 
@@ -88,9 +91,10 @@ void addFloes(Game* game){
 			addedPositions.insert(pos);
 			V2f rpos = V2f((x+rnd())*sectionSize, (y+rnd())*sectionSize);
 
-			game->icefloes[floeIndex] = new Icefloe(rpos, floeIndex++);
+			game->icefloes[floeIndex] = new Icefloe(rpos, floeIndex);
+			floeIndex++;
 
-			if (rnd() < 0.1f) {
+			if (rnd() < 10.1f) {
 				game->addPenguinOnFloe(floeIndex - 1);
 			}
 		}

@@ -25,7 +25,7 @@ void loadSoundBuffer(sf::SoundBuffer& soundBuffer, string file) {
 }
 
 void drawSprite(sf::Sprite& sprite, Game* game) {
-    sprite.setPosition(sprite.getPosition() + game->center + game->screenCenter);
+    sprite.setPosition(sprite.getPosition() - game->center + game->screenCenter);
     game->window->draw(sprite);
 }
 

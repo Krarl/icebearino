@@ -40,8 +40,6 @@ int main()
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape))
             window.close();
 
-
-
         // Update game
         if (gamerunning) {
             game.update(dt);

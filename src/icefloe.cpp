@@ -54,12 +54,11 @@ Icefloe::Icefloe() : Icefloe(V2f(0, 0), 0) {
 void Icefloe::update(Game* game){
 	pos += game->dt*vel;
 
-	cout << game->icefloes.size() << endl;
 	for(auto it = next(game->icefloes.find(ind)); it != game->icefloes.end(); it++){
 		Icefloe* icefloe = it->second;
 		if (icefloe == this)
 			continue;
-		//cout << rad+icefloe->rad << " " << len(icefloe->pos-pos) << endl;
+		
 		if (rad+icefloe->rad > len(icefloe->pos-pos)){
 			float m1 = mass, m2 = icefloe->mass, u1 = len(vel), u2 = len(icefloe->vel);
 			V2f v1 = norm(icefloe->vel)*(u1*(m1-m2)+2*m2*u2)/(m1+m2);
@@ -67,11 +66,6 @@ void Icefloe::update(Game* game){
 			vel = v1;
 			icefloe->vel = v2;
 		}
-
-		/*for (V2f mypoint : parts[0].polygon.points)
-			if (icefloe->inside(mypoint+pos-icefloe->pos))
-				swap(vel, icefloe->vel);*/
-
 	}
 }
 
