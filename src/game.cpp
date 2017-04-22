@@ -4,6 +4,7 @@
 #include <string>
 #include "macros.h"
 #include "perlin.h"
+#include <sstream>
 using namespace std;
 
 int floeIndex = 0;
@@ -18,6 +19,7 @@ void Game::init(sf::RenderWindow* window){
 	player = new Player(0);
 	over = 0;
 	floeIndex = 0;
+	score = 0;
 
 	loadTexture(waterTexture, "res/img/water.png");
 	waterTexture.setRepeated(true);
@@ -65,6 +67,7 @@ void Game::update(float dt){
 			penguins.erase(penguins.begin() + i);
 			i--;
 			penguinDeath.play();
+			score ++;
 		}
 	}
 
@@ -77,6 +80,14 @@ void Game::update(float dt){
 	center = player->getRealPos(this);
 }
 
+bool fontloaded = 0;
+sf::Font font;
+void loadFont(){
+	if (fontloaded)
+		return;
+	fontloaded = 1;
+	font.loadFromFile("res/fonts/arial.ttf");
+}
 
 void Game::render(){
 	/*float wstep = 10;
@@ -99,6 +110,19 @@ void Game::render(){
 		penguin->render(this);
 
 	player->render(this);
+
+	if (score != 0){
+		stringstream ss;
+		ss << " " << score << " penguins eaten.";
+		loadFont();
+		sf::Text text(ss.str(), font, 30);
+		text.setPosition(V2f(1, 1));
+		text.setColor(sf::Color::Black);
+		window->draw(text);
+		text.setPosition(V2f(0, 0));
+		text.setColor(sf::Color::White);
+		window->draw(text);
+	}
 }
 
 void Game::addPenguinOnFloe(int floe)  {

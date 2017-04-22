@@ -22,6 +22,7 @@ public:
 	map<int, Icefloe*> icefloes;
 	float dt;
 	bool over;
+	int score;
 
 	void init(sf::RenderWindow* window);
 	void cleanup();

@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "game.h"
 #include "util.h"
+#include <sstream>
 
 int main()
 {
@@ -29,6 +30,7 @@ int main()
     icebearinoSound.play();
 
     bool gamerunning = false;
+    int highscore = 0;
 
     // Start the game loop
     sf::Clock deltaClock;
@@ -51,6 +53,7 @@ int main()
         if (gamerunning) {
             game.update(dt);
             if (game.over) {
+                highscore = max(game.score, highscore);
                 gamerunning = false;
                 deathSound.play();
                 game.cleanup();
@@ -72,6 +75,10 @@ int main()
             sf::Text title("ICEBEARINO", font, 100.0f);
             sf::Text pressEnter("Press enter to start the game", font, 20.0f);
 
+        	stringstream ss;
+        	ss << "Highscore: " << highscore;
+            sf::Text hs(ss.str(), font, 20.0f);
+
             sf::FloatRect textRect = title.getLocalBounds();
             title.setOrigin(textRect.left + textRect.width/2.0f, textRect.top + textRect.height/2.0f);
             title.setPosition(sf::Vector2f(400, 250));
@@ -80,8 +87,13 @@ int main()
             pressEnter.setOrigin(textRect.left + textRect.width/2.0f, textRect.top + textRect.height/2.0f);
             pressEnter.setPosition(sf::Vector2f(400, 320));
 
+            textRect = hs.getLocalBounds();
+            hs.setOrigin(textRect.left + textRect.width/2.0f, textRect.top + textRect.height/2.0f);
+            hs.setPosition(sf::Vector2f(400, 400));
+
             window.draw(title);
             window.draw(pressEnter);
+            window.draw(hs);
 
             //sf::Text startText("press space to start", font, 30.0f);
         }
