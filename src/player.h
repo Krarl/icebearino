@@ -2,6 +2,7 @@
 #define PLAYER_H_
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include "game.h"
 
 using namespace std;
@@ -24,6 +25,9 @@ public:
 private:
 	sf::Texture texture;
 	sf::Sprite sprite;
+
+	sf::SoundBuffer walkSoundBuffer;
+	sf::Sound walkSound;
 };
 
 #endif

@@ -7,6 +7,10 @@ Player::Player(int icefloe) {
     sprite.setTexture(texture);
     sprite.setOrigin(texture.getSize().x / 2.0f, texture.getSize().y / 2.0f);
 
+    loadSoundBuffer(walkSoundBuffer, "res/sound/walk.ogg");
+    walkSound.setBuffer(walkSoundBuffer);
+    walkSound.setLoop(true);
+
     this->icefloe = icefloe;
     pos = sf::Vector2f(0.0f, 0.0f);
     rot = 0.0f;
@@ -23,17 +27,30 @@ void Player::update(Game* game) {
 
     sf::Vector2f forward = sf::Vector2f(cos(rot - M_PI / 2.0f), sin(rot - M_PI / 2.0f));
 
+    bool moving = false;
+
     if (sf::Keyboard::isKeyPressed(runKey)) {
         pos += game->dt * forward * runSpeed;
+        moving = true;
     }
     if (sf::Keyboard::isKeyPressed(backKey)) {
         pos -= game->dt * forward * runSpeed * 0.4f;
+        moving = true;
     }
     if (sf::Keyboard::isKeyPressed(leftKey)) {
         rot -= game->dt * turnSpeed;
+        moving = true;
     }
     if (sf::Keyboard::isKeyPressed(rightKey)) {
         rot += game->dt * turnSpeed;
+        moving = true;
+    }
+
+    if (moving && walkSound.getStatus() != sf::SoundSource::Status::Playing) {
+        walkSound.play();
+    }
+    else if (!moving && walkSound.getStatus() == sf::SoundSource::Status::Playing) {
+        walkSound.stop();
     }
 }
 

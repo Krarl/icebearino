@@ -46,8 +46,8 @@ void Game::render(){
 		icefloe.second->render(this);
 	for (auto penguin : penguins)
 		penguin->render(this);
+		
 	player->render(this);
-
 }
 
 float sectionSize = 150;

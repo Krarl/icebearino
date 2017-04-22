@@ -13,6 +13,16 @@ void loadTexture(sf::Texture& texture, string file) {
     }
 }
 
+void loadSoundBuffer(sf::SoundBuffer& soundBuffer, string file) {
+    if (soundBuffer.getSampleCount() == 0) {
+        if (!soundBuffer.loadFromFile(file)) {
+            cout << "Error loading sound " << file << endl;
+        } else {
+            cout << "Loaded sound " << file << endl;
+        }
+    }
+}
+
 void drawSprite(sf::Sprite& sprite, Game* game) {
     sprite.setPosition(sprite.getPosition() + game->center + game->screenCenter);
     game->window->draw(sprite);
