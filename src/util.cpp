@@ -37,6 +37,12 @@ float length(sf::Vector2f v) {
     return sqrt(v.x*v.x + v.y*v.y);
 }
 
+float dist(sf::Vector2f a, sf::Vector2f b) {
+    float dx = a.x - b.x;
+    float dy = a.y - b.y;
+    return sqrt(dx*dx + dy*dy);
+}
+
 float rnd(){
     return (rand()%1000)/1000.0f;
 }

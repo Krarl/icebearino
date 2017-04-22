@@ -17,7 +17,10 @@ public:
 	void update(Game* game);
 	void render(Game* game);
 
+	sf::Vector2f getForwardVector();
+
 	sf::Vector2f getRealPos(Game* game);
+	sf::Vector2f getRealMouthPos(Game* game);
 
 	int icefloe;
 	sf::Vector2f pos;

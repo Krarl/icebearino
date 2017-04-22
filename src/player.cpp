@@ -38,7 +38,7 @@ void Player::update(Game* game) {
     const float turnSpeed = 1.7f;
     const float friction = 3.0f;
 
-    sf::Vector2f forward = sf::Vector2f(cos(rot - M_PI / 2.0f), sin(rot - M_PI / 2.0f));
+    auto forward = getForwardVector();
 
     bool moving = false;
 
@@ -120,6 +120,10 @@ void Player::render(Game* game) {
     drawSprite(sprite, game);
 }
 
+sf::Vector2f Player::getForwardVector() {
+    return sf::Vector2f(cos(rot - M_PI / 2.0f), sin(rot - M_PI / 2.0f));
+}
+
 sf::Vector2f Player::getRealPos(Game* game) {
     sf::Vector2f realPos = pos;
 
@@ -129,4 +133,8 @@ sf::Vector2f Player::getRealPos(Game* game) {
     }
 
     return realPos;
+}
+
+sf::Vector2f Player::getRealMouthPos(Game* game) {
+    return getRealPos(game) + getForwardVector() * ((float)texture.getSize().y / 2.0f - 20);
 }

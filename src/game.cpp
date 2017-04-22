@@ -49,8 +49,15 @@ void Game::cleanup() {
 
 void Game::update(float dt){
 	this->dt = dt;
-	for (auto penguin : penguins)
-		penguin->update(this);
+	for (int i = 0; i < (int)penguins.size(); i++) {
+		penguins[i]->update(this);
+
+		if (dist(player->getRealMouthPos(this), penguins[i]->getRealPos(this)) < 50.0f) {
+			delete penguins[i];
+			penguins.erase(penguins.begin() + i);
+			i--;
+		}
+	}
 
 	player->update(this);
 	for (auto icefloe : icefloes)
@@ -94,7 +101,7 @@ void addFloes(Game* game){
 			game->icefloes[floeIndex] = new Icefloe(rpos, floeIndex);
 			floeIndex++;
 
-			if (rnd() < 10.1f) {
+			if (rnd() < 0.1f) {
 				game->addPenguinOnFloe(floeIndex - 1);
 			}
 		}
