@@ -11,6 +11,10 @@ public:
 	void init();
 	map<int, Penguin*> penguins;
 	sf::Window* window;
+	float dt;
+
+	void update(float dt);
+	void render();
 
 };
 

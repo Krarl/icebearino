@@ -1,10 +1,15 @@
-#ifndef WORLD_H_
-#define WORLD_H_
+#ifndef PENGUIN_H_
+#define PENGUIN_H_
 #include <SFML/Graphics.hpp>
-#include "penguin.h"
+#include "game.h"
 using namespace std;
 
+class Game;
+
 class Penguin {
+public:
+	void update(Game& game);
+	void render(Game& game);
 };
 
 #endif
