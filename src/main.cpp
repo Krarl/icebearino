@@ -92,12 +92,12 @@ int main()
     centerText(intro3b);
     centerText(intro4);
 
-    intro1.setPosition(400, 200);
-    intro2a.setPosition(400, 200);
-    intro2b.setPosition(400, 250);
-    intro3a.setPosition(400, 200);
-    intro3b.setPosition(400, 250);
-    intro4.setPosition(400, 200);
+    intro1.setPosition(400, 300);
+    intro2a.setPosition(400, 250);
+    intro2b.setPosition(400, 300);
+    intro3a.setPosition(400, 250);
+    intro3b.setPosition(400, 300);
+    intro4.setPosition(400, 300);
 
     const float perText = 4.0f;
     const int numTexts = 4;
