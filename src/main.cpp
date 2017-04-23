@@ -14,7 +14,7 @@ int main()
 
     // Create a graphical text to display
     sf::Font font;
-    if (!font.loadFromFile("res/fonts/arial.ttf"))
+    if (!font.loadFromFile("res/fonts/Cinzel-Bold.ttf"))
         return EXIT_FAILURE;
 
     // Death sound
