@@ -19,7 +19,7 @@ int loadHighscore() {
     }
     f.close();
     
-    return 0;
+    return ret;
 }
 
 void saveHighscore(int high) {
@@ -34,9 +34,6 @@ int main()
     sf::RenderWindow window(sf::VideoMode(800, 600), "Icebearino");
     Game game;
     game.init(&window);
-
-    // Load the previous high score
-    loadHighscore();
 
     // Create a graphical text to display
     sf::Font font;
@@ -77,7 +74,7 @@ int main()
     ParticleSystem snow(1000, ParticleMode::Snow, "res/img/snowflake.png");
 
     bool gamerunning = false;
-    int highscore = 0;
+    int highscore = loadHighscore();
 
     sf::Clock gameTimer;
 
@@ -239,9 +236,9 @@ int main()
         }
 
         elapsedTime += dt;
-        if (elapsedTime > 15.0f) {
+        if (elapsedTime > 15.0f && gameStarted) {
             elapsedTime = 0.0f;            
-            if (rnd() < 10.1f) {
+            if (rnd() < 0.1f) {
                 factSound.setBuffer(factBuffers[rand() % 6]);
                 factSound.play();
             }
