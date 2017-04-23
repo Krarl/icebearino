@@ -1,9 +1,11 @@
 #include "penguin.h"
 #include "util.h"
 #include <math.h>
+using namespace std;
 
 sf::Texture Player::texture;
 sf::SoundBuffer Player::walkSoundBuffer;
+sf::SoundBuffer Player::splashSoundBuffer;
 
 float bodyLength;
 
@@ -17,12 +19,16 @@ Player::Player(int icefloe) {
     walkSound.setBuffer(walkSoundBuffer);
     walkSound.setLoop(true);
 
+    loadSoundBuffer(splashSoundBuffer, "res/sound/splash.ogg");
+    splashSound.setBuffer(splashSoundBuffer);
+
     this->icefloe = icefloe;
     pos = sf::Vector2f(0.0f, 0.0f);
     rot = 0.0f;
     height = 0.0f;
     vel = sf::Vector2f(0.0f, 0.0f);
     velY = 0.0f;
+	dying = false;
 }
 
 Player::~Player() {
@@ -46,7 +52,7 @@ void Player::update(Game* game) {
     bool moving = false;
 
     // Move forward/backward
-    if (height == 0.0f) {
+    if (height == 0.0f && !dying) {
         if (sf::Keyboard::isKeyPressed(runKey)) {
             vel += game->dt * forward * runSpeed;
             moving = true;
@@ -57,18 +63,18 @@ void Player::update(Game* game) {
         }
     }
     // Rotate left/right
-    if (sf::Keyboard::isKeyPressed(leftKey)) {
+    if (sf::Keyboard::isKeyPressed(leftKey) && !dying) {
         rot -= game->dt * turnSpeed;
         moving = true;
     }
-    if (sf::Keyboard::isKeyPressed(rightKey)) {
+    if (sf::Keyboard::isKeyPressed(rightKey) && !dying) {
         rot += game->dt * turnSpeed;
         moving = true;
     }
 
     // Update position and velocity
     pos += vel * game->dt;
-    if (height == 0.0f)
+    if (height == 0.0f || dying)
         vel -= vel * friction * game->dt;
 
     // Walk sound
@@ -80,13 +86,14 @@ void Player::update(Game* game) {
     }
 
     // Jumping
-    if (height == 0.0f && sf::Keyboard::isKeyPressed(jumpKey)) {
+    if (height == 0.0f && sf::Keyboard::isKeyPressed(jumpKey) && !dying) {
         height = 0.01;
         pos = getRealPos(game);
         icefloe = -1;
         velY = 1.5f;
     }
-    height += velY * game->dt;
+
+    height += velY * game->dt * (dying ? 0.3f : 1.f);
     velY -= 5.0f * game->dt;
 
     // Detect if we moved outside our floe
@@ -96,7 +103,7 @@ void Player::update(Game* game) {
     }
 
     // Landing and switching ice floe
-    if (height <= 0.0f && velY <= 0.0f) {
+    if (height <= 0.0f && velY <= 0.0f && !dying) {
         velY = height = 0.0f;
         if (icefloe == -1) {
             for (auto f : game->icefloes) {
@@ -109,10 +116,15 @@ void Player::update(Game* game) {
             }
 
             if (icefloe == -1) {
-                game->over = true;
+                dying = true;
+				velY = min(velY, -2.f);
+				splashSound.play();
             }
         }
     }
+
+	if (dying && height < -0.7f)
+		game->over = true;
 }
 
 bool Player::onFloe(Game* game, Icefloe* floe){
@@ -134,6 +146,9 @@ void Player::render(Game* game) {
     sprite.setRotation(rot * 180.0f / M_PI);
     float scale = 1.0f + height;
     sprite.setScale(scale, scale);
+	sf::Color col = sf::Color::White;
+	col.a = (char)min(255, max(0, int(255*(1+height*3))));
+	sprite.setColor(col);
     drawSprite(sprite, game);
 }
 

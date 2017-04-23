@@ -31,13 +31,16 @@ public:
 	float height;
 	sf::Vector2f vel;
 	float velY;
+	bool dying = false;
 
 private:
 	static sf::Texture texture;
 	sf::Sprite sprite;
 
 	static sf::SoundBuffer walkSoundBuffer;
+	static sf::SoundBuffer splashSoundBuffer;
 	sf::Sound walkSound;
+	sf::Sound splashSound;
 };
 
 #endif
