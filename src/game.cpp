@@ -236,7 +236,6 @@ void addFloes(Game* game){
 
 			bool haspenguin = rnd() < 0.1f;
 
-			cout << 1.f-min(0.54f, game->sinceStart/60) << endl;
 
 			if (!haspenguin && rnd() > 1.f-0.54f*min(1.f, game->sinceStart/60))
 				continue;
