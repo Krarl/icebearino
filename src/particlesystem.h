@@ -11,6 +11,7 @@ struct Particle {
     sf::Vector2f pos;
     sf::Vector2f vel;
     float alpha;
+    float factor;
 };
 
 enum ParticleMode {

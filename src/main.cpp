@@ -71,7 +71,7 @@ int main()
     zimmerSound.setBuffer(zimmerBuffer);
 
     // Snow effect
-    ParticleSystem snow(1000, ParticleMode::Snow, "res/img/snowflake.png");
+    ParticleSystem snow(10000, ParticleMode::Snow, "res/img/snowflake.png");
 
     bool gamerunning = false;
     int highscore = loadHighscore();

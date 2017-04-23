@@ -29,7 +29,7 @@ void ParticleSystem::update(float dt) {
 
 
         if (mode == ParticleMode::Snow) {
-            p.vel.x += sin(p.pos.y / 20.0f) * 100.0f * dt;
+            p.vel.x += sin(p.pos.y / p.factor) * 100.0f * dt;
             
             if (p.pos.y > 600)
                 resetParticle(i);
@@ -75,6 +75,7 @@ void ParticleSystem::resetParticle(int i, bool setup) {
         particles[i].vel.x = rnd() * 10.0f - 5.0f;
         particles[i].vel.y = rnd() * 100.0f + 50.0f;
 
+        particles[i].factor = rnd() * 20.0f + 10.0f;
         particles[i].alpha = 0.5f + rnd() * 0.5f;
     } else if (mode == ParticleMode::Explosion || mode == ParticleMode::Splash) {
         if (setup) {
