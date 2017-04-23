@@ -11,6 +11,7 @@ void loadTexture(sf::Texture& texture, string file);
 void loadSoundBuffer(sf::SoundBuffer& soundBuffer, string file);
 void drawSprite(sf::Sprite& sprite, Game* game);
 void centerSprite(sf::Sprite& sprite);
+void centerText(sf::Text& text);
 float length(sf::Vector2f v);
 float dist(sf::Vector2f a, sf::Vector2f b);
 float rnd();

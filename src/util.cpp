@@ -33,6 +33,11 @@ void centerSprite(sf::Sprite& sprite) {
     sprite.setOrigin(sprite.getTexture()->getSize().x / 2.0f, sprite.getTexture()->getSize().y / 2.0f);
 }
 
+void centerText(sf::Text& text) {
+    sf::FloatRect textRect = text.getLocalBounds();
+    text.setOrigin(textRect.left + textRect.width/2.0f, textRect.top + textRect.height/2.0f);
+}
+
 float length(sf::Vector2f v) {
     return sqrt(v.x*v.x + v.y*v.y);
 }
