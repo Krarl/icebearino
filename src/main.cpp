@@ -111,6 +111,8 @@ int main()
 	music.setVolume(50);
 	bool musicPlaying = false;
 
+    bool gameStarted = false;
+
     // Start the game loop
     sf::Clock deltaClock;
     float dt = 0.0f;
@@ -141,7 +143,8 @@ int main()
         } else {
             snow.update(dt);
 
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return)){
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return)) {
+                gameStarted = true;
                 game.init(&window);
                 gamerunning = true;
 				deathSound.stop();
@@ -181,9 +184,9 @@ int main()
             hs.setPosition(sf::Vector2f(400, 400));
 
             auto curTime = gameTimer.getElapsedTime();
-            if (curTime > sf::seconds(numTexts * perText)) {
+            if (gameStarted || curTime > sf::seconds(numTexts * perText)) {
                 float t = (curTime - sf::seconds(perText * numTexts)).asSeconds();
-                fade = 1.0f - max(0.0f, min(1.0f, 2.0f - t));
+                fade = gameStarted ? 1.0f : 1.0f - max(0.0f, min(1.0f, 2.0f - t));
                 if (t > 1.0f && t < 2.0f && icebearinoSound.getStatus() != sf::SoundSource::Status::Playing)
                     icebearinoSound.play();              
 
@@ -192,36 +195,38 @@ int main()
                 window.draw(hs);
             }
 
-            if (curTime > sf::seconds(0.0f * perText) && curTime < sf::seconds(1.0f * perText)) {
-                float t = (curTime - sf::seconds(perText * 0.0f)).asSeconds();
-                fade = 1.0f - max(0.0f, min(1.0f, abs(2.0f - t)));
-                window.draw(intro1);
-                if (t > 1.0f && t < 2.0f && zimmerSound.getStatus() != sf::SoundSource::Status::Playing)
-                    zimmerSound.play();
+            if (!gameStarted) {
+                if (curTime > sf::seconds(0.0f * perText) && curTime < sf::seconds(1.0f * perText)) {
+                    float t = (curTime - sf::seconds(perText * 0.0f)).asSeconds();
+                    fade = 1.0f - max(0.0f, min(1.0f, abs(2.0f - t)));
+                    window.draw(intro1);
+                    if (t > 1.0f && t < 2.0f && zimmerSound.getStatus() != sf::SoundSource::Status::Playing)
+                        zimmerSound.play();
+                }
+                if (curTime > sf::seconds(1.0f * perText) && curTime < sf::seconds(2.0f * perText)) {
+                    float t = (curTime - sf::seconds(perText * 1.0f)).asSeconds();
+                    fade = 1.0f - max(0.0f, min(1.0f, abs(2.0f - t)));
+                    window.draw(intro2a);
+                    window.draw(intro2b);
+                    if (t > 1.0f && t < 2.0f && zimmerSound.getStatus() != sf::SoundSource::Status::Playing)
+                        zimmerSound.play();
+                }
+                if (curTime > sf::seconds(2.0f * perText) && curTime < sf::seconds(3.0f * perText)) {
+                    float t = (curTime - sf::seconds(perText * 2.0f)).asSeconds();
+                    fade = 1.0f - max(0.0f, min(1.0f, abs(2.0f - t)));
+                    window.draw(intro3a);
+                    window.draw(intro3b);
+                    if (t > 1.0f && t < 2.0f && zimmerSound.getStatus() != sf::SoundSource::Status::Playing)
+                        zimmerSound.play();
+                }
+                if (curTime > sf::seconds(3.0f * perText) && curTime < sf::seconds(4.0f * perText)) {
+                    float t = (curTime - sf::seconds(perText * 3.0f)).asSeconds();
+                    fade = 1.0f - max(0.0f, min(1.0f, abs(2.0f - t)));
+                    window.draw(intro4);
+                    if (t > 1.0f && t < 2.0f && zimmerSound.getStatus() != sf::SoundSource::Status::Playing)
+                        zimmerSound.play();
+                }
             }
-            if (curTime > sf::seconds(1.0f * perText) && curTime < sf::seconds(2.0f * perText)) {
-                float t = (curTime - sf::seconds(perText * 1.0f)).asSeconds();
-                fade = 1.0f - max(0.0f, min(1.0f, abs(2.0f - t)));
-                window.draw(intro2a);
-                window.draw(intro2b);
-                if (t > 1.0f && t < 2.0f && zimmerSound.getStatus() != sf::SoundSource::Status::Playing)
-                    zimmerSound.play();
-            }
-            if (curTime > sf::seconds(2.0f * perText) && curTime < sf::seconds(3.0f * perText)) {
-                float t = (curTime - sf::seconds(perText * 2.0f)).asSeconds();
-                fade = 1.0f - max(0.0f, min(1.0f, abs(2.0f - t)));
-                window.draw(intro3a);
-                window.draw(intro3b);
-                if (t > 1.0f && t < 2.0f && zimmerSound.getStatus() != sf::SoundSource::Status::Playing)
-                    zimmerSound.play();
-            }
-            if (curTime > sf::seconds(3.0f * perText) && curTime < sf::seconds(4.0f * perText)) {
-                float t = (curTime - sf::seconds(perText * 3.0f)).asSeconds();
-                fade = 1.0f - max(0.0f, min(1.0f, abs(2.0f - t)));
-                window.draw(intro4);
-                if (t > 1.0f && t < 2.0f && zimmerSound.getStatus() != sf::SoundSource::Status::Playing)
-                    zimmerSound.play();
-            }            
 
             sf::RectangleShape fadeRect(sf::Vector2f(800.0f, 600.0f));
             fadeRect.setPosition(0.0f, 0.0f);
