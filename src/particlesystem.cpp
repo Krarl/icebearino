@@ -66,7 +66,11 @@ void ParticleSystem::update(float dt) {
 void ParticleSystem::resetParticle(int i, bool setup) {
     if (mode == ParticleMode::Snow) {
         particles[i].pos.x = rnd() * 800.0f;
-        particles[i].pos.y = rnd() * -800.0f - 200.0f;
+        if (setup) {
+            particles[i].pos.y = rnd() * 800.0f;
+        } else {
+            particles[i].pos.y = rnd() * -600.0f;
+        }
 
         particles[i].vel.x = rnd() * 10.0f - 5.0f;
         particles[i].vel.y = rnd() * 100.0f + 50.0f;
