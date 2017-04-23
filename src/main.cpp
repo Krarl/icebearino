@@ -139,8 +139,7 @@ int main()
             }
         } else {
             snow.update(dt);
-
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return)) {
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
                 gameStarted = true;
                 game.init(&window);
                 gamerunning = true;
@@ -166,7 +165,7 @@ int main()
 			if (musicPlaying)
 				music.stop(), musicPlaying = false;
             sf::Text title("ICEBEARINO", font, 100.0f);
-            sf::Text pressEnter("Press enter to start the game", font, 20.0f);
+            sf::Text pressEnter("Press space to start the game", font, 20.0f);
             sf::Text credits("Made by Karl Lundstig and Fredrik Hernqvist for Ludum Dare 38", font, 16.0f);
 
         	stringstream ss;

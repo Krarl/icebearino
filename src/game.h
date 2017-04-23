@@ -22,7 +22,7 @@ public:
 	vector<Penguin*> penguins;
 	map<int, Icefloe*> icefloes;
 	float dt, sinceStart;
-	bool over;
+	bool over, blockSpace;
 	int score;
 
 	void init(sf::RenderWindow* window);

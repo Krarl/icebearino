@@ -39,6 +39,7 @@ void Game::init(sf::RenderWindow* window){
 	floeIndex++;
 	hunger = 0.7;
 	sinceStart = 0;
+	blockSpace = true;
 }
 
 void Game::cleanup() {
@@ -71,6 +72,8 @@ void Game::update(float dt){
 
 	hunger -= dt*0.08f;
 	sinceStart += dt;
+
+	blockSpace &= sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space);
 
 
 	addFloes(this);

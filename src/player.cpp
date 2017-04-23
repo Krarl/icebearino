@@ -107,7 +107,7 @@ void Player::update(Game* game) {
     }
 
     // Jumping
-    if (height == 0.0f && sf::Keyboard::isKeyPressed(jumpKey) && !dying) {
+    if (height == 0.0f && sf::Keyboard::isKeyPressed(jumpKey) && !game->blockSpace && !dying) {
         height = 0.01;
         pos = getRealPos(game);
         icefloe = -1;
@@ -155,9 +155,9 @@ bool Player::onFloe(Game* game, Icefloe* floe){
         , forward = getForwardVector()
         , perp = getPerpVector();
 
-    float sideFactor = bodyLength*0.2f, forwardFactor = bodyLength*0.5f;
+    float sideFactor = bodyLength*0.12f, forwardFactor = bodyLength*0.26f;
 
-    rep(dx, -1, 2) rep(dy, -1, 2)
+    rep(dx, -2, 3) rep(dy, -2, 3)
         hits += floe->inside(relPos + perp*(sideFactor*dx) + forward*(forwardFactor*dy));
 
     return hits >= 1;
