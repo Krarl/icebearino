@@ -148,6 +148,8 @@ int main()
                 game.init(&window);
                 gamerunning = true;
 				deathSound.stop();
+                zimmer.stop();
+                icebearino.stop();
             }
         }
 
