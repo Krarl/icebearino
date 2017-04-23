@@ -4,6 +4,29 @@
 #include "particlesystem.h"
 #include "util.h"
 #include <sstream>
+#include <fstream>
+
+using namespace std;
+
+const char* savefile = "save";
+
+int loadHighscore() {
+    int ret = 0;
+
+    ifstream f(savefile);
+    if (f.good()) {
+        f >> ret;
+    }
+    f.close();
+    
+    return 0;
+}
+
+void saveHighscore(int high) {
+    ofstream f(savefile);
+    f << high << endl;
+    f.close();
+}
 
 int main()
 {
@@ -11,6 +34,9 @@ int main()
     sf::RenderWindow window(sf::VideoMode(800, 600), "Icebearino");
     Game game;
     game.init(&window);
+
+    // Load the previous high score
+    loadHighscore();
 
     // Create a graphical text to display
     sf::Font font;
@@ -107,6 +133,7 @@ int main()
             game.update(dt);
             if (game.over) {
                 highscore = max(game.score, highscore);
+                saveHighscore(highscore);
                 gamerunning = false;
                 deathSound.play();
                 game.cleanup();
