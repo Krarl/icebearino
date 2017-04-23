@@ -117,6 +117,7 @@ int main()
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return)){
                 game.init(&window);
                 gamerunning = true;
+				deathSound.stop();
             }
         }
 
