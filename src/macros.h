@@ -3,6 +3,7 @@
 #include <map>
 #include <set>
 #include <utility>
+#define _USE_MATH_DEFINES
 #include <math.h>
 #include <string>
 #include <iostream>
