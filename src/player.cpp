@@ -146,8 +146,10 @@ void Player::render(Game* game) {
     sprite.setRotation(rot * 180.0f / M_PI);
     float scale = 1.0f + height;
     sprite.setScale(scale, scale);
-	sf::Color col = sf::Color::White;
-	col.a = (char)min(255, max(0, int(255*(1+height*3))));
+
+	char colVal = min(255, max(0, int(255*(1+height*3))));
+	sf::Color col(colVal, colVal, colVal, colVal);
+
 	sprite.setColor(col);
     drawSprite(sprite, game);
 }
