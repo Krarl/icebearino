@@ -44,7 +44,7 @@ float dist(sf::Vector2f a, sf::Vector2f b) {
 }
 
 float rnd(){
-    return (rand()%1000)/1000.0f;
+    return (rand() % 10000) / 10000.0f;
 }
 
 float len(V2f v){

@@ -30,6 +30,18 @@ int main()
     icebearinoSound.setBuffer(icebearinoBuffer);
     icebearinoSound.play();
 
+    // Fact sounds
+    sf::SoundBuffer factBuffers[7];
+    loadSoundBuffer(factBuffers[0], "res/sound/facts-01.ogg");
+    loadSoundBuffer(factBuffers[1], "res/sound/facts-02.ogg");
+    loadSoundBuffer(factBuffers[2], "res/sound/facts-03.ogg");
+    loadSoundBuffer(factBuffers[3], "res/sound/facts-04.ogg");
+    loadSoundBuffer(factBuffers[4], "res/sound/facts-05.ogg");
+    loadSoundBuffer(factBuffers[5], "res/sound/facts-06.ogg");
+    loadSoundBuffer(factBuffers[6], "res/sound/facts-07.ogg");
+    sf::Sound factSound;
+    float elapsedTime = 0.0f;
+
     // Snow effect
     ParticleSystem snow(1000, ParticleMode::Snow, "res/img/snowflake.png");
 
@@ -101,6 +113,15 @@ int main()
             window.draw(pressEnter);
             window.draw(hs);
             window.draw(snow);            
+        }
+
+        elapsedTime += dt;
+        if (elapsedTime > 15.0f) {
+            elapsedTime = 0.0f;            
+            if (rnd() < 0.1f) {
+                factSound.setBuffer(factBuffers[rand() % 7]);
+                factSound.play();
+            }
         }
 
         // Update the window
