@@ -7,6 +7,7 @@
 #include <SFML/Graphics.hpp>
 #include "macros.h"
 #include "icefloe.h"
+#include "particlesystem.h"
 using namespace std;
 
 class Penguin;
@@ -30,6 +31,7 @@ public:
 	void render();
 
 	void addPenguinOnFloe(int floe);
+	void addBloodAt(sf::Vector2f pos);
 
 private:
 	sf::Texture waterTexture;
@@ -37,6 +39,8 @@ private:
 
 	sf::SoundBuffer penguinDeathBuffer;
 	sf::Sound penguinDeath;
+
+	vector<ParticleSystem*> bloodSplashes;
 };
 
 #endif

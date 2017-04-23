@@ -35,20 +35,19 @@ void Game::init(sf::RenderWindow* window){
 }
 
 void Game::cleanup() {
-	cout << "Deleting player" << endl;
 	delete player;
 
-	cout << "Deleting penguins" << endl;
 	for (Penguin* penguin : penguins)
 		delete penguin;
 	penguins.clear();
 
-	cout << "Deleting floes" << endl;
 	for (auto floe : icefloes)
 		delete floe.second;
 	icefloes.clear();
 
-	cout << "Done" << endl;
+	for (auto bloodSplash : bloodSplashes)
+		delete bloodSplash;
+	bloodSplashes.clear();
 
 	addedPositions.clear();
 }
@@ -72,11 +71,22 @@ void Game::update(float dt){
 		penguins[i]->update(this);
 
 		if (dist(player->getRealMouthPos(this), penguins[i]->getRealPos(this)) < 50.0f) {
+			addBloodAt(penguins[i]->getRealPos(this));			
 			delete penguins[i];
 			penguins.erase(penguins.begin() + i);
 			i--;
 			penguinDeath.play();
+			
 			score ++;
+		}
+	}
+
+	for (size_t i = 0; i < bloodSplashes.size(); i++) {
+		bloodSplashes[i]->update(dt);
+		if (!bloodSplashes[i]->stillAlive) {
+			delete bloodSplashes[i];
+			bloodSplashes.erase(bloodSplashes.begin() + i);
+			--i;
 		}
 	}
 
@@ -120,6 +130,10 @@ void Game::render(){
 		icefloe.second->render(this);
 	for (auto penguin : penguins)
 		penguin->render(this);
+	for (auto bloodSplash : bloodSplashes) {
+		bloodSplash->setPosition(-center + screenCenter);
+		window->draw(*bloodSplash);
+	}
 
 	player->render(this);
 
@@ -137,10 +151,15 @@ void Game::render(){
 	}
 }
 
-void Game::addPenguinOnFloe(int floe)  {
+void Game::addPenguinOnFloe(int floe) {
 	Penguin* penguin = new Penguin(floe);
 	penguins.push_back(penguin);
 }
+
+void Game::addBloodAt(sf::Vector2f pos) {
+	bloodSplashes.push_back(new ParticleSystem(100, ParticleMode::Explosion, "res/img/blood.png", pos));
+}
+
 
 
 float sectionSize = 150;
