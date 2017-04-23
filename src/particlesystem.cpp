@@ -76,12 +76,15 @@ void ParticleSystem::resetParticle(int i, bool setup) {
         particles[i].vel.y = rnd() * 100.0f + 50.0f;
 
         particles[i].alpha = 0.5f + rnd() * 0.5f;
-    } else if (mode == ParticleMode::Explosion) {
+    } else if (mode == ParticleMode::Explosion || mode == ParticleMode::Splash) {
         if (setup) {
             particles[i].pos = pos;
 
             float angle = 2 * M_PI * rnd();
             float speed = 20.0f + rnd() * 60.0f;
+			if (mode == ParticleMode::Splash)
+				speed = 20.0f + rnd() * 160.f;
+
             particles[i].vel = sf::Vector2f(cos(angle), sin(angle)) * speed;
             particles[i].alpha = 0.8f + rnd() * 0.2f;
         } else {

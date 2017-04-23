@@ -21,6 +21,8 @@ void Game::init(sf::RenderWindow* window){
 	floeIndex = 0;
 	score = 0;
 
+	splash = nullptr;
+
 	loadTexture(waterTexture, "res/img/water.png");
 	waterTexture.setRepeated(true);
 	water.setTexture(waterTexture);
@@ -98,6 +100,10 @@ void Game::update(float dt){
 		}
 	}
 
+	if (splash != nullptr) {
+		splash->update(dt);
+	}
+
 	player->update(this);
 	for (auto icefloe : icefloes)
 		icefloe.second->update(this);
@@ -145,6 +151,12 @@ void Game::render(){
 		bloodSplash->setPosition(-center + screenCenter);
 		window->draw(*bloodSplash);
 	}
+
+	if (splash != nullptr) {
+		splash->setPosition(-center + screenCenter);
+		window->draw(*splash);
+	}
+
 	if (!player->dying)
 		player->render(this);
 
@@ -172,7 +184,7 @@ void Game::addBloodAt(sf::Vector2f pos) {
 }
 
 void Game::addSplash() {
-
+	splash = new ParticleSystem(200, ParticleMode::Splash, "res/img/splash.png", player->getRealPos(this)+player->getForwardVector()*30.f);
 }
 
 

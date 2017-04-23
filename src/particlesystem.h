@@ -15,7 +15,8 @@ struct Particle {
 
 enum ParticleMode {
     Snow,
-    Explosion
+    Explosion,
+	Splash
 };
 
 class ParticleSystem : public sf::Drawable, public sf::Transformable {

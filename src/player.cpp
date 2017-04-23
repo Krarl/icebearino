@@ -140,6 +140,7 @@ void Player::update(Game* game) {
                 dying = true;
 				velY = min(velY, -2.f);
 				splashSound.play();
+				game->addSplash();
             }
         }
     }
