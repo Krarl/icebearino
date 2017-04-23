@@ -55,6 +55,9 @@ void Game::cleanup() {
 	bloodSplashes.clear();
 
 	addedPositions.clear();
+
+	if (splash != nullptr)
+		delete splash;
 }
 
 Perlin perlin;

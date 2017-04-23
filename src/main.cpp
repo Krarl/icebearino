@@ -79,6 +79,12 @@ int main()
     const float perText = 4.0f;
     const int numTexts = 4;
 
+	sf::Music music;
+	music.openFromFile("res/sound/music.ogg");
+	music.setLoop(true);
+	music.setVolume(50);
+	bool musicPlaying = false;
+
     // Start the game loop
     sf::Clock deltaClock;
     float dt = 0.0f;
@@ -121,8 +127,14 @@ int main()
 
         // Render game
         if (gamerunning) {
+			if (!musicPlaying){
+				musicPlaying = true;
+				music.play();
+			}
             game.render();
         } else if (!gamerunning) {
+			if (musicPlaying)
+				music.stop(), musicPlaying = false;
             sf::Text title("ICEBEARINO", font, 100.0f);
             sf::Text pressEnter("Press enter to start the game", font, 20.0f);
 
