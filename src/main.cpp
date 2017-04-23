@@ -56,15 +56,15 @@ int main()
     icebearinoSound.setBuffer(icebearinoBuffer);
 
     // Fact sounds
-    sf::SoundBuffer factBuffers[7];
+    sf::SoundBuffer factBuffers[6];
     loadSoundBuffer(factBuffers[0], "res/sound/facts-01.ogg");
     loadSoundBuffer(factBuffers[1], "res/sound/facts-02.ogg");
     loadSoundBuffer(factBuffers[2], "res/sound/facts-03.ogg");
     loadSoundBuffer(factBuffers[3], "res/sound/facts-04.ogg");
     loadSoundBuffer(factBuffers[4], "res/sound/facts-05.ogg");
     loadSoundBuffer(factBuffers[5], "res/sound/facts-06.ogg");
-    loadSoundBuffer(factBuffers[6], "res/sound/facts-07.ogg");
     sf::Sound factSound;
+
     float elapsedTime = 0.0f;
 
     // Zimmer sound
@@ -239,8 +239,8 @@ int main()
         elapsedTime += dt;
         if (elapsedTime > 15.0f) {
             elapsedTime = 0.0f;            
-            if (rnd() < 0.1f) {
-                factSound.setBuffer(factBuffers[rand() % 7]);
+            if (rnd() < 10.1f) {
+                factSound.setBuffer(factBuffers[rand() % 6]);
                 factSound.play();
             }
         }
