@@ -37,6 +37,7 @@ void Game::init(sf::RenderWindow* window){
 	addedPositions.insert({0, 0});
 	icefloes[floeIndex] = new Icefloe(sf::Vector2f(0.0f, 0.0f), floeIndex);
 	floeIndex++;
+	hunger = 1;
 }
 
 void Game::cleanup() {
@@ -67,6 +68,8 @@ void Game::update(float dt){
 	perlinh += dt;
 	this->dt = dt;
 
+	hunger -= dt*0.1f;
+
 
 	addFloes(this);
 
@@ -91,8 +94,12 @@ void Game::update(float dt){
 			penguinDeath.play();
 			
 			score ++;
+			hunger = min(1.f, hunger + 0.3f);
 		}
 	}
+
+	if (hunger < 0)
+		over = true;
 
 	for (size_t i = 0; i < bloodSplashes.size(); i++) {
 		bloodSplashes[i]->update(dt);
@@ -120,7 +127,7 @@ void loadFont(){
 	if (fontloaded)
 		return;
 	fontloaded = 1;
-	font.loadFromFile("res/fonts/arial.ttf");
+	font.loadFromFile("res/fonts/courier.ttf");
 }
 
 void Game::render(){
@@ -163,10 +170,10 @@ void Game::render(){
 	if (!player->dying)
 		player->render(this);
 
+	loadFont();
 	if (score != 0){
 		stringstream ss;
 		ss << " " << score << " penguins eaten.";
-		loadFont();
 		sf::Text text(ss.str(), font, 30);
 		text.setPosition(V2f(1, 1));
 		text.setColor(sf::Color::Black);
@@ -175,6 +182,23 @@ void Game::render(){
 		text.setColor(sf::Color::White);
 		window->draw(text);
 	}
+	
+	stringstream ss;
+	int barlen = 10, filled = int(hunger*barlen)+1;
+	ss << "Hunger: [";
+	rep(i, 0, filled)
+		ss << "#";
+	rep(i, 0, 10-filled)
+		ss << " ";
+	ss << "]";
+	sf::Text text(ss.str(), font, 30);
+    centerText(text);
+	text.setPosition(V2f(400, 570));
+	text.setColor(sf::Color::Black);
+	window->draw(text);
+	text.setPosition(V2f(400, 571));
+	text.setColor(hunger < 0.3f ? sf::Color::Red : sf::Color::White);
+	window->draw(text);
 }
 
 void Game::addPenguinOnFloe(int floe) {

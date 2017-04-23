@@ -43,6 +43,7 @@ private:
 
 	sf::SoundBuffer chompBuffer;
 	sf::Sound chomp;
+	float hunger = 1;
 
 	vector<ParticleSystem*> bloodSplashes;
 	ParticleSystem* splash;
