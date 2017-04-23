@@ -134,6 +134,9 @@ void Game::render(){
 		for(int y = wy; y <= wy+600*2+w_height; y += w_height)
 			water.setPosition(V2f(x, y)), window->draw(water);
 
+	if (player->dying)
+		player->render(this);
+
 	for (auto icefloe : icefloes)
 		icefloe.second->render(this);
 	for (auto penguin : penguins)
@@ -142,8 +145,8 @@ void Game::render(){
 		bloodSplash->setPosition(-center + screenCenter);
 		window->draw(*bloodSplash);
 	}
-
-	player->render(this);
+	if (!player->dying)
+		player->render(this);
 
 	if (score != 0){
 		stringstream ss;
