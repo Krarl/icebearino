@@ -167,6 +167,7 @@ int main()
 				music.stop(), musicPlaying = false;
             sf::Text title("ICEBEARINO", font, 100.0f);
             sf::Text pressEnter("Press enter to start the game", font, 20.0f);
+            sf::Text credits("Made by Karl Lundstig and Fredrik Hernqvist for Ludum Dare 38", font, 16.0f);
 
         	stringstream ss;
         	ss << "Highscore: " << highscore;
@@ -182,6 +183,9 @@ int main()
             centerText(hs);
             hs.setPosition(sf::Vector2f(400, 400));
 
+            centerText(credits);
+            credits.setPosition(sf::Vector2f(400, 580));
+
             auto curTime = gameTimer.getElapsedTime();
             if (gameStarted || curTime > sf::seconds(numTexts * perText)) {
                 float t = (curTime - sf::seconds(perText * numTexts)).asSeconds();
@@ -192,6 +196,7 @@ int main()
                 window.draw(title);
                 window.draw(pressEnter);
                 window.draw(hs);
+                window.draw(credits);
             }
 
             if (!gameStarted) {

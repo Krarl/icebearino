@@ -37,7 +37,7 @@ void Game::init(sf::RenderWindow* window){
 	addedPositions.insert({0, 0});
 	icefloes[floeIndex] = new Icefloe(sf::Vector2f(0.0f, 0.0f), floeIndex);
 	floeIndex++;
-	hunger = 1;
+	hunger = 0.7;
 	sinceStart = 0;
 }
 
@@ -69,7 +69,7 @@ void Game::update(float dt){
 	perlinh += dt;
 	this->dt = dt;
 
-	hunger -= dt*0.1f;
+	hunger -= dt*0.08f;
 	sinceStart += dt;
 
 
@@ -172,17 +172,23 @@ void Game::render(){
 	if (!player->dying)
 		player->render(this);
 
+	auto drawWithOutline = [&](sf::Text text, V2f pos, sf::Color in, sf::Color out){
+		text.setColor(out);
+		rep(i, 0, 8) {
+			text.setPosition(pos+V2f(cos(0.25f*M_PI*i), sin(0.25f*M_PI*i))*2.f);
+			window->draw(text);
+		}
+		text.setColor(in);
+		text.setPosition(pos);
+		window->draw(text);
+	};
+
 	loadFont();
 	if (score != 0){
 		stringstream ss;
 		ss << " " << score << " penguins eaten.";
 		sf::Text text(ss.str(), font, 30);
-		text.setPosition(V2f(1, 1));
-		text.setColor(sf::Color::Black);
-		window->draw(text);
-		text.setPosition(V2f(0, 0));
-		text.setColor(sf::Color::White);
-		window->draw(text);
+		drawWithOutline(text, V2f(1, 1), sf::Color::White, sf::Color::Black);
 	}
 	
 	stringstream ss;
@@ -195,12 +201,7 @@ void Game::render(){
 	ss << "]";
 	sf::Text text(ss.str(), font, 30);
     centerText(text);
-	text.setPosition(V2f(400, 570));
-	text.setColor(sf::Color::Black);
-	window->draw(text);
-	text.setPosition(V2f(400, 571));
-	text.setColor(hunger < 0.3f ? sf::Color::Red : sf::Color::White);
-	window->draw(text);
+	drawWithOutline(text, V2f(400, 570), hunger < 0.3f ? sf::Color::Red : sf::Color::White, sf::Color::Black);
 }
 
 void Game::addPenguinOnFloe(int floe) {
