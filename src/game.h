@@ -32,6 +32,7 @@ public:
 
 	void addPenguinOnFloe(int floe);
 	void addBloodAt(sf::Vector2f pos);
+	void addSplash();
 
 private:
 	sf::Texture waterTexture;
@@ -44,6 +45,7 @@ private:
 	sf::Sound chomp;
 
 	vector<ParticleSystem*> bloodSplashes;
+	ParticleSystem* splash;
 };
 
 #endif

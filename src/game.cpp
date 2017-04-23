@@ -171,6 +171,10 @@ void Game::addBloodAt(sf::Vector2f pos) {
 	bloodSplashes.push_back(new ParticleSystem(100, ParticleMode::Explosion, "res/img/blood.png", pos));
 }
 
+void Game::addSplash() {
+
+}
+
 
 
 float sectionSize = 150;

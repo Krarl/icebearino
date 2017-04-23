@@ -85,8 +85,10 @@ void Player::update(Game* game) {
     }
 
 	if (moving){
-		if (abs(walkProg) > 1)
-			walkUp = !walkUp;
+		if (walkProg > 1)
+			walkUp = false;
+		if (walkProg < -1)
+			walkUp = true;
 		float spd = walkUp ? 1 : -1;
 		walkProg += spd*8*game->dt;
 	}
