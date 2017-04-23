@@ -38,6 +38,7 @@ void Game::init(sf::RenderWindow* window){
 	icefloes[floeIndex] = new Icefloe(sf::Vector2f(0.0f, 0.0f), floeIndex);
 	floeIndex++;
 	hunger = 1;
+	sinceStart = 0;
 }
 
 void Game::cleanup() {
@@ -69,6 +70,7 @@ void Game::update(float dt){
 	this->dt = dt;
 
 	hunger -= dt*0.1f;
+	sinceStart += dt;
 
 
 	addFloes(this);
@@ -232,10 +234,17 @@ void addFloes(Game* game){
 				continue;
 			addedPositions.insert(pos);
 
+			bool haspenguin = rnd() < 0.1f;
+
+			cout << 1.f-min(0.54f, game->sinceStart/60) << endl;
+
+			if (!haspenguin && rnd() > 1.f-0.54f*min(1.f, game->sinceStart/60))
+				continue;
+
 			game->icefloes[floeIndex] = new Icefloe(rpos, floeIndex);
 			floeIndex++;
 
-			if (rnd() < 0.1f) {
+			if (haspenguin) {
 				game->addPenguinOnFloe(floeIndex - 1);
 			}
 		}

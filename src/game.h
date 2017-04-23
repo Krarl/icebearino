@@ -21,7 +21,7 @@ public:
 	string menuText = "";
 	vector<Penguin*> penguins;
 	map<int, Icefloe*> icefloes;
-	float dt;
+	float dt, sinceStart;
 	bool over;
 	int score;
 
