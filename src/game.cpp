@@ -29,6 +29,9 @@ void Game::init(sf::RenderWindow* window){
 	loadSoundBuffer(penguinDeathBuffer, "res/sound/bird.ogg");
 	penguinDeath.setBuffer(penguinDeathBuffer);
 
+	loadSoundBuffer(chompBuffer, "res/sound/chomp.ogg");
+	chomp.setBuffer(chompBuffer);
+
 	addedPositions.insert({0, 0});
 	icefloes[floeIndex] = new Icefloe(sf::Vector2f(0.0f, 0.0f), floeIndex);
 	floeIndex++;
@@ -70,7 +73,12 @@ void Game::update(float dt){
 		}
 		penguins[i]->update(this);
 
-		if (dist(player->getRealMouthPos(this), penguins[i]->getRealPos(this)) < 50.0f) {
+		float eatingDistance = 50.0f;
+
+		if (dist(player->getRealMouthPos(this), penguins[i]->getRealPos(this)) < eatingDistance * 1.5f && chomp.getStatus() != sf::SoundSource::Status::Playing) {
+			chomp.play();
+		}
+		if (dist(player->getRealMouthPos(this), penguins[i]->getRealPos(this)) < eatingDistance) {
 			addBloodAt(penguins[i]->getRealPos(this));			
 			delete penguins[i];
 			penguins.erase(penguins.begin() + i);

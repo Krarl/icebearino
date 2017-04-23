@@ -40,6 +40,9 @@ private:
 	sf::SoundBuffer penguinDeathBuffer;
 	sf::Sound penguinDeath;
 
+	sf::SoundBuffer chompBuffer;
+	sf::Sound chomp;
+
 	vector<ParticleSystem*> bloodSplashes;
 };
 
