@@ -34,8 +34,10 @@ public:
 	bool dying = false;
 
 private:
-	static sf::Texture texture;
-	sf::Sprite sprite;
+	static sf::Texture texture, feet1, feet2;
+	sf::Sprite sprite, feetS1, feetS2;
+	float walkProg;
+	float walkUp;
 
 	static sf::SoundBuffer walkSoundBuffer;
 	static sf::SoundBuffer splashSoundBuffer;

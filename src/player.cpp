@@ -4,6 +4,8 @@
 using namespace std;
 
 sf::Texture Player::texture;
+sf::Texture Player::feet1;
+sf::Texture Player::feet2;
 sf::SoundBuffer Player::walkSoundBuffer;
 sf::SoundBuffer Player::splashSoundBuffer;
 
@@ -11,9 +13,17 @@ float bodyLength;
 
 Player::Player(int icefloe) {
     loadTexture(texture, "res/img/bear.png");
+    loadTexture(feet1, "res/img/feet1.png");
+    loadTexture(feet2, "res/img/feet2.png");
     bodyLength = (float)texture.getSize().y / 2.0f;
+
     sprite.setTexture(texture);
     centerSprite(sprite);
+    feetS1.setTexture(feet1);
+    feetS2.setTexture(feet2);
+    centerSprite(sprite);
+    centerSprite(feetS1);
+    centerSprite(feetS2);
 
     loadSoundBuffer(walkSoundBuffer, "res/sound/walk.ogg");
     walkSound.setBuffer(walkSoundBuffer);
@@ -29,6 +39,8 @@ Player::Player(int icefloe) {
     vel = sf::Vector2f(0.0f, 0.0f);
     velY = 0.0f;
 	dying = false;
+	walkProg = 0;
+	walkUp = 0;
 }
 
 Player::~Player() {
@@ -71,6 +83,13 @@ void Player::update(Game* game) {
         rot += game->dt * turnSpeed;
         moving = true;
     }
+
+	if (moving){
+		if (abs(walkProg) > 1)
+			walkUp = !walkUp;
+		float spd = walkUp ? 1 : -1;
+		walkProg += spd*8*game->dt;
+	}
 
     // Update position and velocity
     pos += vel * game->dt;
@@ -147,11 +166,24 @@ void Player::render(Game* game) {
     float scale = 1.0f + height;
     sprite.setScale(scale, scale);
 
+	for (sf::Sprite* foot : {&feetS1, &feetS2}){
+		foot->setRotation(rot * 180.0f / M_PI);
+		foot->setScale(scale, scale);
+	}
+	feetS1.setPosition(getRealPos(game)+getForwardVector()*10.f*walkProg);
+	feetS2.setPosition(getRealPos(game)-getForwardVector()*10.f*walkProg);
+
 	char colVal = min(255, max(0, int(255*(1+height*3))));
 	sf::Color col(colVal, colVal, colVal, colVal);
 
+	for (auto foot : {feetS1, feetS2}){
+		foot.setColor(col);
+		drawSprite(foot, game);
+	}
+
 	sprite.setColor(col);
     drawSprite(sprite, game);
+
 }
 
 sf::Vector2f Player::getForwardVector() {
